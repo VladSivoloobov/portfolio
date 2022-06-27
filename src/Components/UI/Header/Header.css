@@ -1,0 +1,50 @@
+header{
+    width: 85%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    height: 120px;
+    z-index: 1001;
+    position: relative;
+}
+
+header .links{
+    display: flex;
+    align-items: center;
+}
+
+header .links li{
+    margin-right: 40px;
+    list-style: none;
+}
+
+header a{
+    color: #fff;
+    transition: color 0.2s;
+}
+
+header .links li.active a{
+    pointer-events: none;
+}
+
+header a:hover, header .links li.active a{
+    color: #5F5F5F;
+}
+
+header .links li a{
+    font-size: 2em;
+}
+
+header .logo a{
+    font-size: 4em;
+}
+
+.logo svg{
+    font-size: 0.8em;
+    stroke-width: 5px;
+}
+
+.links svg{
+    stroke-width: 3px;
+}

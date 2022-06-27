@@ -1,38 +1,69 @@
-.App {
-  text-align: center;
+@font-face {
+    font-family: Fifaks;
+    src: url("./fonts/Fifaks10Dev1.ttf");
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+@font-face {
+    font-family: Undertale;
+    src: url("../src/fonts/Undertale-Battle-Font.ttf");
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+*{
+    padding: 0;
+    margin: 0;
+    font-family: Fifaks;
+    user-select: none;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+a{
+    text-decoration: none;
+    color: #fff;
+    text-shadow: 1px 1px 5px black;
 }
 
-.App-link {
-  color: #61dafb;
+body{
+    height: 200vh;
+    overflow-x: hidden;
+    touch-action: pan-x pan-y;
+    scroll-behavior: smooth;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#root{
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+.content{
+    color: #fff;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .5);
+    -webkit-font-smoothing: none;
+    text-shadow: 1px 1px 5px black;
+}
+
+@keyframes stroke {
+    to{
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+    }
+}
+
+svg{
+    fill: rgb(241, 230, 230);
+    animation: stroke 2s alternate-reverse;
+}
+
+img{
+    pointer-events: none;
+    user-select: none;
+}
+
+body::-webkit-slider-thumb{
+     
+}
+
+body::-webkit-slider-runnable-track{
+    background:rgba(0, 0, 0, .5);
 }

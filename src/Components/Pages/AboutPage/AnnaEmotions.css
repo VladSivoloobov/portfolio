@@ -1,0 +1,11 @@
+div[data-windowed="window"].message-block{
+    animation: slide 0.5s ease-out forwards;
+}
+
+div[data-emotion="baffled"] img.start{
+    transform: scale(1.05);
+}
+
+/* div[data-emotion="dreamed"] img.start{
+    
+} */
