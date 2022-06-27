@@ -39,11 +39,6 @@
 
 .audio:hover{
     cursor: pointer;
-    background-image: url("../../../img/ui/Audio/C_Buttons36.png");
-}
-
-.audio.off:hover{
-    background-image: url("../../../img/ui/Audio/C_Buttons34.png");
 }
 
 .audio.off{
