@@ -79,7 +79,7 @@ export function AboutPage({styles, changeHeaderLink}){
 
         const rightText = novellaText.substring(
             startTimeout,
-            novellaText.length - 1
+            novellaText.length
         );
 
         return {
@@ -92,41 +92,40 @@ export function AboutPage({styles, changeHeaderLink}){
         };
     }
 
-    function showMessage(text, autor = "Девочка", emotion = smile){
-        const parsedText = parseNovelTags(text);
-        let runnableText = parsedText.novellaText;
-
-        if(parsedText.timeout){
-            runnableText = parsedText.leftText;
+    async function runText(text, state, timeout){
+        let buffer = "";
+        for(let i = 0; i < text.length; i++){
+            const letter = text[i];
+            buffer += letter;
+            state(buffer);
+            if(audioButtonState && !(letter === " " || letter === "." ||
+                letter === "!" || letter === "," || letter === "?")){
+                    new Audio(voice).play()
+                }
+            await timeOut(timeout);
         }
+    }
+
+    function showMessage(text, autor = "Девочка", emotion = smile){
+        setSlowedMessageText("");
+        const parsedText = parseNovelTags(text);
+        let runnableText = parsedText.timeout ? parsedText.leftText : parsedText.novellaText;
+        let ms = 20;
 
         setMessageEmotion(emotion);
         setFirstMessageNotRunnded(false);
         setMessageAutor(autor);
-        let ms = 20;
+        
         new Promise(async resolve => {
             setMessageCompleted(false);
             setMessageStyle({
                 cursor: "default"
-            })
-            let buffer = "";
-            for(let i = 0; i < runnableText.length; i++){
-                if(parsedText.timeout){
-                    if(i === parsedText.startTimeout){
-                        ms = parsedText.timeout;
-                    }
-                }
-                const letter = runnableText[i];
-                buffer += letter;
-                setMessageText(buffer);
-                if(audioButtonState && !(letter === " " || letter === "." ||
-                    letter === "!" || letter === "," || letter === "?")){
-                        new Audio(voice).play()
-                    }
-                await timeOut(ms);
-            }
+            });
+
+            await runText(runnableText, setMessageText, ms);
             if(parsedText.timeout){
                 const rightText = parsedText.rightText;
+                await runText(rightText, setSlowedMessageText, parsedText.timeout ? parsedText.timeout : ms);
             }
             resolve(1);
         })
@@ -234,7 +233,7 @@ export function AboutPage({styles, changeHeaderLink}){
                         {messageAutor}
                     </div>
                     <div style={messageStyle} className="message-text">
-                        {messageText}
+                        {messageText} <span className={slowedMessageText.length > 0 ? "slowed-message-text" : "span"}>{slowedMessageText}</span>
                     </div>
                 </div>
             </div>

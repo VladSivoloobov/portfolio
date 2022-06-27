@@ -109,7 +109,7 @@
     font-size: 1.5em;
     border-radius: 0 10px 10px 10px;
     position: relative;
-    overflow: hidden;
+    display: flex;
 }
 
 .message-text, .message-name{
@@ -134,7 +134,7 @@
 
 @keyframes slideUp{
     from{
-        transform: translateY(40px);
+        transform: scale(0);
     }
     to{
         transform: 0;
@@ -182,4 +182,32 @@ div[data-windowed="window"]{
     to{
         transform: translate(0) scale(1);
     }
+}
+
+@keyframes messageUp {
+    0%{
+        transform: translate(0);
+    }
+    40%{
+        transform: translateY(-180%);
+    }
+    80%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+        transform: 0;
+    }
+}
+
+.slowed-message-text{
+    font-size: 3em;
+    font-family: Undertale;   
+    padding-left: 40px;
+    animation: messageUp 1s forwards;
+    position: absolute;
+    right: 0;
+    text-align: left;
+    letter-spacing: 10px;
+    text-shadow: 0 0 10px black;
 }
