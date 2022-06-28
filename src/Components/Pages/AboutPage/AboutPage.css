@@ -17,6 +17,7 @@
     z-index: 1000;
     height: 100vh;
     will-change: transform;
+    
 }
 
 .novel img.start{
@@ -46,7 +47,8 @@
 }
 
 .novel{
-    background-color: rgba(0, 0, 0, .4);
+    --opacity-background: rgba(0, 0, 0, .4);
+    background-color: var(--opacity-background);
     height: 100vh;
     width: 100%;
     position: absolute;
@@ -109,7 +111,6 @@
     font-size: 1.5em;
     border-radius: 0 10px 10px 10px;
     position: relative;
-    display: flex;
 }
 
 .message-text, .message-name{
@@ -187,27 +188,40 @@ div[data-windowed="window"]{
 @keyframes messageUp {
     0%{
         transform: translate(0);
+        opacity: 1;
+        letter-spacing: 8px;
+        /* border: 2px solid rgba(0, 0, 0, 0); */
     }
-    40%{
-        transform: translateY(-180%);
+    10%{
+        color: rgb(138, 48, 48);
+    }
+    60%{
+        transform: translateY(-1000%) scale(3);
+        /* border: 2px solid rgba(0, 0, 0, 1); */
+        color: rgb(138, 48, 48);
     }
     80%{
-        opacity: 0;
+        transform: translateY(-1000%) scale(3);
+        color: rgb(138, 48, 48);
     }
     100%{
+        transform: translate(0);
         opacity: 1;
-        transform: 0;
+        font-size: 1em;
+        padding-left: 0;
+        position: static;
+        letter-spacing: 0;
+        padding: 0;
+        display: inline;
+        /* border: 2px solid rgba(0, 0, 0, 0); */
+        padding: 0;
     }
 }
 
 .slowed-message-text{
-    font-size: 3em;
+    font-size: 1em;
     font-family: Undertale;   
-    padding-left: 40px;
-    animation: messageUp 1s forwards;
-    position: absolute;
-    right: 0;
-    text-align: left;
-    letter-spacing: 10px;
-    text-shadow: 0 0 10px black;
+    animation: messageUp 3.5s forwards ease-out;
+    display: inline-block;
+    text-shadow: 1px 1px black;
 }

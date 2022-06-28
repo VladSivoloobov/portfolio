@@ -1,37 +1,30 @@
 import React, {useState, useEffect} from "react";
 import "./AboutPage.css";
-import smile from "../../../img/anna/tile000.png";
-import happy from "../../../img/anna/tile001.png";
-import baffled from "../../../img/anna/tile002.png";
-import closedEyes from "../../../img/anna/tile003.png";
-import scornful from "../../../img/anna/tile004.png";
-import dreamed from "../../../img/anna/tile005.png";
-import tired from "../../../img/anna/tile006.png";
 import phrases from "./phrases.json";
 import { useInView } from "react-intersection-observer";
 import "./AnnaEmotions.css";
-import ost from "../../../sound/ost.mp3";
-import voice from "../../../sound/voice.mp3";
+import { Anna } from "./Novel/Anna";
+import { Scene } from "./Novel/Scene";
+import { Choice } from "./Choice";
 
-const audio = new Audio(ost);
-const annaVoice = new Audio(voice);
+const anna = new Anna();
+const scene = new Scene();
 
-export function AboutPage({styles, changeHeaderLink}){
-    const AnnaEmotions = {
-        smile,
-        happy,
-        baffled,
-        closedEyes,
-        scornful,
-        dreamed,
-        tired
+
+export function AboutPage({changeHeaderLink}){
+    const styles = {
+        transition: "all 0.1s ease-out",
+        position: "absolute",
+        transform: `translateY(calc(100% - ${window.scrollY}px))`
     }
+
     //message data
     const [messageText, setMessageText] = useState(0);
     const [messageAutor, setMessageAutor] = useState(0);
-    const [messageEmotion, setMessageEmotion] = useState(AnnaEmotions.smile);
+    const [messageEmotion, setMessageEmotion] = useState(anna.emotions.smile);
     const [currentEmotion, setCurrentEmotion] = useState("smile");
     const [slowedMessageText, setSlowedMessageText] = useState("");
+    const [choices, setChoices] = useState(null);
     // *********************************************************
     const [messageStyle, setMessageStyle] = useState({
         cursor: "default",
@@ -98,19 +91,18 @@ export function AboutPage({styles, changeHeaderLink}){
             const letter = text[i];
             buffer += letter;
             state(buffer);
-            if(audioButtonState && !(letter === " " || letter === "." ||
-                letter === "!" || letter === "," || letter === "?")){
-                    new Audio(voice).play()
-                }
+            if(audioButtonState && letter !== " "){
+                new Audio(anna.voice).play()
+            }
             await timeOut(timeout);
         }
     }
 
-    function showMessage(text, autor = "Девочка", emotion = smile){
+    function showMessage(text, autor = "Девочка", emotion = anna.emotions.smile, timeout = 20){
         setSlowedMessageText("");
         const parsedText = parseNovelTags(text);
         let runnableText = parsedText.timeout ? parsedText.leftText : parsedText.novellaText;
-        let ms = 20;
+        let ms = timeout;
 
         setMessageEmotion(emotion);
         setFirstMessageNotRunnded(false);
@@ -145,23 +137,23 @@ export function AboutPage({styles, changeHeaderLink}){
         const messages = phrases;
         setCurrentEmotion(messages[messageCounter].emotion);
 
-        let currentEmotion = AnnaEmotions[`${messages[messageCounter].emotion}`] ? 
-                                AnnaEmotions[`${messages[messageCounter].emotion}`] :
-                                AnnaEmotions.smile;
+        let currentEmotion = anna.emotions[`${messages[messageCounter].emotion}`] ? 
+                                anna.emotions[`${messages[messageCounter].emotion}`] :
+                                anna.emotions.smile;
         const currentMessageText = messages[messageCounter].messageText;
         const currentMessageAutor = messages[messageCounter].messageAutor;
 
         setMessageCounter(messageCounter + 1);
-        showMessage(currentMessageText, currentMessageAutor, currentEmotion);
+        showMessage(currentMessageText, currentMessageAutor, currentEmotion, messages[messageCounter].timeout);
     }    
 
     function playSound(){
-        audio.play();
+        scene.currentMusic.play();
         setAudioButtonState(true);
     }
 
     function stopSound(){
-        audio.pause();
+        scene.currentMusic.pause();
         setAudioButtonState(false);
     }
 
@@ -186,7 +178,13 @@ export function AboutPage({styles, changeHeaderLink}){
         if(windowed){
             changeHeaderLink("Обо мне");
         }
-    })
+
+        if(window.scrollY < 300){
+            changeHeaderLink("Главная");
+            setAudioButtonState(false);
+            scene.currentMusic.pause();
+        }
+    }, [windowed, changeHeaderLink])
 
     return(
         <div ref={ref} className="aboutPage" onTransitionEnd={() => {
@@ -234,6 +232,7 @@ export function AboutPage({styles, changeHeaderLink}){
                     </div>
                     <div style={messageStyle} className="message-text">
                         {messageText} <span className={slowedMessageText.length > 0 ? "slowed-message-text" : "span"}>{slowedMessageText}</span>
+                        {choices ? <Choice choices={choices} /> : <div></div>}
                     </div>
                 </div>
             </div>

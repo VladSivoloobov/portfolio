@@ -51,12 +51,6 @@ export function MainPage(){
         zIndex: "3"
     }
 
-    const aboutPageScrollStyles = {
-        transition: "all 0.1s ease-out",
-        position: "absolute",
-        transform: `translateY(calc(100% - ${currentScroll}px))`
-    }
-
     return(
         <div className="mainPage">
             <div style={contentBackgroundStyles} className="content">
@@ -74,7 +68,7 @@ export function MainPage(){
                         <img src={arrow} alt="" />
                     </div>
                 </div>
-                <AboutPage changeHeaderLink={changeHeaderLink} styles={aboutPageScrollStyles} />
+                <AboutPage changeHeaderLink={changeHeaderLink} />
             </div>
         </div>
     )
