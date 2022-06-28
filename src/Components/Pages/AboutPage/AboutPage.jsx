@@ -4,8 +4,7 @@ import { useInView } from "react-intersection-observer";
 import "./AnnaEmotions.css";
 import { Anna } from "./Novel/Anna";
 import { Scene } from "./Novel/Scene";
-import { Choice } from "./Choice";
-import { Message } from "./Message";
+import { Message } from "./Message/Message";
 
 const scene = new Scene();
 const anna = new Anna();
@@ -20,7 +19,6 @@ export function AboutPage({changeHeaderLink}){
     //message data
     const [messageEmotion, setMessageEmotion] = useState(anna.emotions.smile);
     const [currentEmotion, setCurrentEmotion] = useState("smile");
-    const [firstMessageNotRunned, setFirstMessageNotRunnded] = useState(true);
     // *********************************************************
 
     const [inViewOptions, setInViewOptions] = useState({
@@ -30,7 +28,6 @@ export function AboutPage({changeHeaderLink}){
     const {ref, inView} = useInView(inViewOptions);
     const [windowed, setWindowed] = useState(false);
     const [aboutPageStyles, setAboutPageStyles] = useState(styles);
-
     const [audioButtonState, setAudioButtonState] = useState(false);
 
     function playSound(){
@@ -108,9 +105,8 @@ export function AboutPage({changeHeaderLink}){
                     setMessageEmotion={setMessageEmotion}
                     setCurrentEmotion={setCurrentEmotion}
                     audioButtonState={audioButtonState}
-                    firstMessageNotRunned={firstMessageNotRunned}
-                    setFirstMessageNotRunnded={setFirstMessageNotRunnded}
                     setInViewOptions={setInViewOptions}
+                    scene={scene}
                 />
             </div>
         </div>

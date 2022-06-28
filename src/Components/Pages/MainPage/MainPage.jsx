@@ -19,10 +19,6 @@ export function MainPage(){
 
     const [headerLinkActive, setHeaderLinkActive] = useState("Главная");
 
-    function changeHeaderLink(headerLink){
-        setHeaderLinkActive(headerLink);
-    }
-
     const nameScrollStyles = {
         transform: `translateX(${Math.floor(-currentScroll)}px)`,
         transition: 'all 0.2s ease-out',
@@ -68,7 +64,7 @@ export function MainPage(){
                         <img src={arrow} alt="" />
                     </div>
                 </div>
-                <AboutPage changeHeaderLink={changeHeaderLink} />
+                <AboutPage changeHeaderLink={setHeaderLinkActive} />
             </div>
         </div>
     )

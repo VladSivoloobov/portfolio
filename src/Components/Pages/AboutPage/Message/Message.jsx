@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from "react";
-import { Choice } from "./Choice";
-import { Anna } from "./Novel/Anna";
-import phrases from "./phrases.json";
+import { Choice } from "../Choice/Choice";
+import { Anna } from "../Novel/Anna";
+import phrases from "../phrases.json";
+import "./Message.css";
 
 function parseNovelTags(text){
     const startTimeout = text.indexOf("[timeout");
@@ -50,17 +51,15 @@ export function Message({
         setMessageEmotion,
         setCurrentEmotion,
         audioButtonState,
-        firstMessageNotRunned,
-        setFirstMessageNotRunnded,
-        setInViewOptions
+        setInViewOptions,
+        scene
     }){
     const [messageText, setMessageText] = useState(0);
     const [messageAutor, setMessageAutor] = useState(0);
     const [slowedMessageText, setSlowedMessageText] = useState("");
     const [messageCompleted, setMessageCompleted] = useState(false);
-    const [messageStyle, setMessageStyle] = useState({
-        cursor: "default",
-    });
+    const [firstMessageNotRunned, setFirstMessageNotRunnded] = useState(true);
+    const [choiceLineCounter, setChoiceLineCounter] = useState(0);
 
     useEffect(() => {
         if(firstMessageNotRunned && windowed){
@@ -100,10 +99,6 @@ export function Message({
         
         new Promise(async resolve => {
             setMessageCompleted(false);
-            setMessageStyle({
-                cursor: "default"
-            });
-
             await runText(runnableText, setMessageText, ms);
             if(parsedText.timeout){
                 const rightText = parsedText.rightText;
@@ -112,25 +107,41 @@ export function Message({
             resolve(1);
         })
         .then(() => {
-           setMessageStyle({
-            cursor: "pointer"
-           });
            setMessageCompleted(true);
         });
     }
 
-    function nextMessage(){
-        const messages = phrases;
-        setCurrentEmotion(messages[messageCounter].emotion);
+    const [choiceLineState, setChoiceLineState] = useState(null);
 
-        let currentEmotion = anna.emotions[`${messages[messageCounter].emotion}`] ? 
-                                anna.emotions[`${messages[messageCounter].emotion}`] :
+    function nextMessage(choiceLine){
+        if(audioButtonState)
+            scene.currentMusic.play();
+
+        let messages = choiceLine ? choiceLine : phrases;
+        const messageIterator = choiceLine ? choiceLineCounter : messageCounter;
+        const stopMusic = messages[messageIterator]?.stopMusic;
+        if(stopMusic)
+            scene.currentMusic.pause();
+
+        setCurrentEmotion(messages[messageIterator].emotion);
+
+        let currentEmotion = anna.emotions[`${messages[messageIterator].emotion}`] ? 
+                                anna.emotions[`${messages[messageIterator].emotion}`] :
                                 anna.emotions.smile;
-        const currentMessageText = messages[messageCounter].messageText;
-        const currentMessageAutor = messages[messageCounter].messageAutor;
+        const currentMessageText = messages[messageIterator].messageText;
+        const currentMessageAutor = messages[messageIterator].messageAutor;
+        const currentChoices = messages[messageIterator].choices;
 
-        setMessageCounter(messageCounter + 1);
-        showMessage(currentMessageText, currentMessageAutor, currentEmotion, messages[messageCounter].timeout);
+        if(choiceLine){
+            setChoiceLineCounter(choiceLineCounter + 1);
+        }
+        else{
+            setMessageCounter(messageCounter + 1);
+        }
+        showMessage(currentMessageText, currentMessageAutor, currentEmotion, messages[messageIterator].timeout);
+        if(currentChoices){
+            setChoices(currentChoices);
+        }
     }    
 
     async function timeOut(ms){
@@ -139,16 +150,17 @@ export function Message({
 
     return (
         <div 
-            className={messageCompleted ? "message-block completed" : "message-block"}
-            onClick={messageCompleted ? nextMessage : null}
+            className={messageCompleted && !choices ? "message-block completed" : "message-block"}
+            data-choiced={choices ? "choices-true" : "choices-false"}
+            onClick={messageCompleted && !choices ? function(){nextMessage(choiceLineState)} : null}
             data-windowed={ windowed ? "window" : "not-window"}
             >
             <div className="message-name">
                 {messageAutor}
             </div>
-            <div style={messageStyle} className="message-text">
+            <div className="message-text">
                 {messageText} <span className={slowedMessageText.length > 0 ? "slowed-message-text" : "span"}>{slowedMessageText}</span>
-                {choices ? <Choice choices={choices} /> : <div></div>}
+                {choices ? <Choice nextMessage={nextMessage} setChoiceLineState={setChoiceLineState} setMessageCounter={setMessageCounter} messageCounter={messageCounter} anna={anna} choices={choices} setChoices={setChoices} /> : <div></div>}
             </div>
         </div>
     )

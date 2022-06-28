@@ -46,27 +46,64 @@
         "messageAutor": "Анна",
         "choices": [
             {
-                "choiceText": "Я хочу с тобой переспать",
+                "choiceText": "Ты странная",
                 "point": {
                     "pointCount": 10,
                     "pointType": "enemy"
-                }
+                },
+                "choiceLine" : [
+                    {
+                        "messageText": "Что? С чего это вдруг?",
+                        "messageAutor": "Анна",
+                        "emotion": "scornful",
+                        "timeout": 20
+                    }
+                ]
             },
             {
-                "choiceText": "Ты конченная",
+                "choiceText": "Не знаю",
                 "point": {
                     "pointCount": 10,
-                    "pointType": "enemy"
-                }
+                    "pointType": "friend"
+                },
+                "choiceLine": [
+                    {
+                        "messageText": "А ты подумай как-нибудь, хе-хе",
+                        "messageAutor": "Анна",
+                        "timeout": 30,
+                        "emotion": "happy"
+                    }
+                ]
             },
             {
                 "choiceText": "Ты милая девочка",
                 "point": {
                     "pointCount": 10,
                     "pointType": "friend"
-                }
+                },
+                "choiceLine": [
+                    {
+                        "messageText": "Ты думаешь я поведусь на эту лесть?",
+                        "messageAutor": "Анна",
+                        "timeout": 100,
+                        "emotion": "baffled",
+                        "stopMusic": true
+                    },
+                    {
+                        "messageText": "Да, я поведусь. Спасибо! Хи-хи",
+                        "messageAutor": "Анна",
+                        "timeout": 20,
+                        "emotion": "happy"
+                    }
+                ]
             }
         ],
+        "emotion": "dreamed",
+        "timeout": 10
+    },
+    {
+        "messageText": "Однажды я бывала в его компьютере, и видела очень много интересного",
+        "messageAutor": "Анна",
         "emotion": "dreamed",
         "timeout": 10
     }

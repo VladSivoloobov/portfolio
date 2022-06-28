@@ -1,0 +1,31 @@
+@keyframes startChoice {
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+.choices{
+    display: flex;
+    justify-content: space-around;
+    font-size: 1em;
+    animation: startChoice 0.5s forwards;
+    position: absolute;
+    bottom: 10%;
+    width: 100%;
+    border-top: 3px solid #570b6e27;
+    left: 0;
+    padding-top: 20px;
+}
+
+.choice{
+    transition: color 0.2s;
+    font-family: Undertale;
+}
+
+.choice:hover{
+    color: gray;
+    cursor: pointer;
+}
