@@ -40,5 +40,34 @@
         "messageAutor": "Анна",
         "emotion": "dreamed",
         "timeout": 10
+    },
+    {
+        "messageText": "Кстати, что ты думаешь обо мне?",
+        "messageAutor": "Анна",
+        "choices": [
+            {
+                "choiceText": "Я хочу с тобой переспать",
+                "point": {
+                    "pointCount": 10,
+                    "pointType": "enemy"
+                }
+            },
+            {
+                "choiceText": "Ты конченная",
+                "point": {
+                    "pointCount": 10,
+                    "pointType": "enemy"
+                }
+            },
+            {
+                "choiceText": "Ты милая девочка",
+                "point": {
+                    "pointCount": 10,
+                    "pointType": "friend"
+                }
+            }
+        ],
+        "emotion": "dreamed",
+        "timeout": 10
     }
 ]
