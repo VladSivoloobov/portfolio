@@ -74,14 +74,20 @@ export function Message({
 
     const [choices, setChoices] = useState(null);
     
-    async function runText(text, state, timeout){
+    async function runText(text, setState, timeout){
+        const voice = new Audio(anna.voice);
         let buffer = "";
         for(let i = 0; i < text.length; i++){
             const letter = text[i];
             buffer += letter;
-            state(buffer);
+            setState(buffer);
             if(audioButtonState && letter !== " "){
-                new Audio(anna.voice).play()
+                new Promise((resolve) => {
+                    setTimeout(() => {
+                        new Audio(anna.voice).play();
+                        resolve(1);
+                    }, 1);
+                })
             }
             await timeOut(timeout);
         }
@@ -102,7 +108,7 @@ export function Message({
             await runText(runnableText, setMessageText, ms);
             if(parsedText.timeout){
                 const rightText = parsedText.rightText;
-                await runText(rightText, setSlowedMessageText, parsedText.timeout ? parsedText.timeout : ms);
+                await runText(rightText, setSlowedMessageText, parsedText.timeout ? parsedText.timeout : ms, resolve);
             }
             resolve(1);
         })
@@ -118,7 +124,15 @@ export function Message({
             scene.currentMusic.play();
 
         let messages = choiceLine ? choiceLine : phrases;
-        const messageIterator = choiceLine ? choiceLineCounter : messageCounter;
+        let messageIterator = choiceLine ? choiceLineCounter : messageCounter;
+        if(choiceLine && choiceLineCounter > choiceLine?.length - 1){
+            setChoiceLineCounter(0);
+            messages = phrases;
+            messageIterator = messageCounter;
+            setChoiceLineState(null);
+            choiceLine = null;
+        }
+
         const stopMusic = messages[messageIterator]?.stopMusic;
         if(stopMusic)
             scene.currentMusic.pause();

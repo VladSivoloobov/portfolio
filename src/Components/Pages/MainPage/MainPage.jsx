@@ -6,6 +6,7 @@ import { Header } from "../../UI/Header/Header";
 import "./MainPage.css";
 import arrow from "../../../img/ui/next.png";
 import { AboutPage } from "../AboutPage/AboutPage";
+import "./MainPage_mobile.css";
 
 export function MainPage(){
     const [currentScroll, setCurrentScroll] = useState(0);
@@ -22,7 +23,6 @@ export function MainPage(){
     const nameScrollStyles = {
         transform: `translateX(${Math.floor(-currentScroll)}px)`,
         transition: 'all 0.2s ease-out',
-        position: "relative",
         zIndex: "10"
     }
 

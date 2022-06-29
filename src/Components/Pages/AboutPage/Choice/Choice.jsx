@@ -16,7 +16,6 @@ export function Choice({nextMessage, setMessageCounter, messageCounter, anna, ch
                     }
                     setChoiceLineState(choice.choiceLine);
                     setChoices(null);
-                    setMessageCounter(messageCounter + 1);
                     nextMessage(choice.choiceLine);
                 }} className="choice">{choice.choiceText}</div>
             ))}

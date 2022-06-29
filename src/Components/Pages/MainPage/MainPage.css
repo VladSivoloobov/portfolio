@@ -55,6 +55,7 @@
 
 .mainPage .portfolio_block .name{
     font-size: 6em;
+    z-index: 10;
 }
 
 .mainPage .button{
