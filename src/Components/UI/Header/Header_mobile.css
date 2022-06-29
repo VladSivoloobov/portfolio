@@ -1,0 +1,25 @@
+@media (max-width: 500px){
+    header{
+        width: 100%;
+        left: 20px;
+    }
+    header .links{
+        flex-direction: column;
+        position: absolute;
+        right: 0;
+        align-items: flex-start;
+        justify-content: space-around;
+        z-index: 800;
+        height: max-content;
+    }
+
+    header .links li a{
+        margin-bottom: -15px;
+        line-height: 40px;
+        display: block;
+    }
+
+    header .logo{
+        font-size: 0.5em;
+    }
+}

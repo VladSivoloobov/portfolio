@@ -1,0 +1,30 @@
+@media (max-width: 500px){
+    .message-block{
+        height: 150px;
+        width: 90%;
+        position: relative;
+        z-index: 2;
+        margin-left: 0;
+        margin-right: 0;
+        right: 1.5%;
+        margin-bottom: 90px;
+    }
+    .message-block .message-name, .message-block .message-text{
+        border: 4px solid #2A0035;
+    }
+
+    .message-block .message-name{
+        border-bottom: none;
+        min-width: 120px;
+        font-size: 1.5em;
+        padding: 5px 10px;
+    }
+
+    .message-block .message-text{
+        width: inherit;
+        font-size: 1.1em;
+        padding: 10px 20px;
+        padding-bottom: 15px;
+        height: inherit;
+    }
+}

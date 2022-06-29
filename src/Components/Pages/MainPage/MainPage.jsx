@@ -22,14 +22,14 @@ export function MainPage(){
 
     const nameScrollStyles = {
         transform: `translateX(${Math.floor(-currentScroll)}px)`,
-        transition: 'all 0.2s ease-out',
+        // transition: 'all 0.2s ease-out',
         zIndex: "10"
     }
 
     const buttonScrollStyles = {
         transform: `translate(${Math.floor(currentScroll)}px)`,
         position: "relative",
-        transition: "all 0.2s ease-out",
+        // transition: "all 0.2s ease-out",
         zIndex: "10"
     }
 
@@ -41,9 +41,17 @@ export function MainPage(){
         transition: "background 0.1s ease-out"
     }
 
+    const [scrolled, setScrolled] = useState(false);
+
+    useEffect(() => {
+        if(currentScroll > 300){
+            setScrolled(true);
+        }
+    }, [currentScroll])
+
     const arrowScrollStyles = {
         bottom: `${Math.floor(currentScroll * 1.5)}px`,
-        transition: "all 0.1s ease-out",
+        // transition: "all 0.1s ease-out",
         zIndex: "3"
     }
 
@@ -51,9 +59,14 @@ export function MainPage(){
         <div className="mainPage">
             <div style={contentBackgroundStyles} className="content">
                 <Header active={headerLinkActive}/>
-                <div className="portfolio_block">
+                <div className="portfolio_block" data-scrolled={ scrolled ? "scrolled" : "not-scrolled"}>
                     <h1 style={nameScrollStyles} className="name">
-                        Владислав Сиволобов
+                        <span className="firstName">
+                            Владислав
+                        </span> 
+                        <span className="secondName">
+                            Сиволобов
+                        </span>
                     </h1>
                     <div style={buttonScrollStyles} className="button">
                         <button>

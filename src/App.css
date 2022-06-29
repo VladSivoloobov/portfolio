@@ -8,6 +8,10 @@
     src: url("../src/fonts/Undertale-Battle-Font.ttf");
 }
 
+div[data-scrolled="scrolled"]{
+    display: none;
+}
+
 *{
     padding: 0;
     margin: 0;
@@ -26,6 +30,7 @@ body{
     overflow-x: hidden;
     touch-action: pan-x pan-y;
     scroll-behavior: smooth;
+    background-color: #2A0035;
 }
 
 #root{

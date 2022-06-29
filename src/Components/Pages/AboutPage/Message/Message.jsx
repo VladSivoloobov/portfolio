@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from "react";
 import { Choice } from "../Choice/Choice";
-import { Anna } from "../Novel/Anna";
 import phrases from "../phrases.json";
 import "./Message.css";
+import "./Message_mobile.css";
+
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+const audioCtx = new AudioContext();
 
 function parseNovelTags(text){
     const startTimeout = text.indexOf("[timeout");
@@ -75,19 +78,13 @@ export function Message({
     const [choices, setChoices] = useState(null);
     
     async function runText(text, setState, timeout){
-        const voice = new Audio(anna.voice);
         let buffer = "";
         for(let i = 0; i < text.length; i++){
             const letter = text[i];
             buffer += letter;
             setState(buffer);
             if(audioButtonState && letter !== " "){
-                new Promise((resolve) => {
-                    setTimeout(() => {
-                        new Audio(anna.voice).play();
-                        resolve(1);
-                    }, 1);
-                })
+                new Audio(anna.voice).play();
             }
             await timeOut(timeout);
         }

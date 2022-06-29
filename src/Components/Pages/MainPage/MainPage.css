@@ -82,12 +82,17 @@
     color: black;
     text-shadow: none;
     transition: background 0.1s, color 0.1s;
+    line-height: 20px;
 }
 
 .mainPage button:hover{
     cursor: pointer;
     background-image: url("../../../img/ui/button_negate.png");
     color: white;
+}
+
+.name span{
+    margin-right: 45px;
 }
 
 .mainPage .arrow img{

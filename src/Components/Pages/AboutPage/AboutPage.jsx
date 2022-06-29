@@ -5,13 +5,14 @@ import "./AnnaEmotions.css";
 import { Anna } from "./Novel/Anna";
 import { Scene } from "./Novel/Scene";
 import { Message } from "./Message/Message";
+import "./AboutPage_mobile.css";
 
 const scene = new Scene();
 const anna = new Anna();
 
 export function AboutPage({changeHeaderLink}){
     const styles = {
-        transition: "all 0.1s ease-out",
+        
         position: "absolute",
         transform: `translateY(calc(100% - ${window.scrollY}px))`
     }
@@ -44,7 +45,7 @@ export function AboutPage({changeHeaderLink}){
         if(!windowed){
             setAboutPageStyles({
                 position: "fixed",
-                transition: "transform 0.2s ease-out",
+                transition: "transform 0.4s ease-out",
                 transform: "translateY(0)"
             });
             setWindowed(true);

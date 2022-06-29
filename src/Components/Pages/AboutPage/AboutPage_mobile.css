@@ -1,0 +1,15 @@
+@media (max-width: 500px){
+    .aboutPage{
+        background-position: 30% center;
+    }
+    .audio{
+        top: 12%;
+        width: 50px;
+        height: 50px;
+        background-size: cover;
+        background-position: center center;
+    }
+    .girl img{
+        width: 80%;
+    }
+}

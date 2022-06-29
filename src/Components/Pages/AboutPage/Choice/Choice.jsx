@@ -1,5 +1,6 @@
 import React from "react";
 import "./Choices.css";
+import "./Choices_mobile.css";
 
 export function Choice({nextMessage, setMessageCounter, messageCounter, anna, choices, setChoices, setChoiceLineState}){
     return (
