@@ -1,34 +1,66 @@
 @media (max-width: 500px){
     .mainPage .portfolio_block{
-        will-change: auto;
         top: 30%;
     }
 
     .mainPage .portfolio_block .name{
         width: 100%;
         text-align: center;
-        font-size: 2.5em;
+        font-size: 3em;
         z-index: 10;
-        height: 50px;
+        height: max-content;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        text-align: center;
+        text-align: center; 
+        position: relative;
+        top: 10%;
     }
-
+    
     .name .firstName{
-        line-height: 100px;
+        text-align: center;
+        margin-bottom: 30px;
     }
 
     .mainPage .portfolio_block button{
-        padding-top: 25px;
-        padding-right: 5px;
-        height: 200px;
+        text-align: center;
+        margin-top: 40%;
     }
 
     .name span{
         margin-right: 0;
         font-size: 1.5em;
+        line-height: 25px;
         display: block;
     }
 }
+
+@media not all and (min-resolution:.001dpcm)
+{ @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+
+    .mainPage .portfolio_block .name{
+        font-size: 2.5em;
+        text-shadow: 10px 3px 10px rgba(0, 0, 0, 0.082);
+        -webkit-text-stroke: 1px;
+    }
+
+    .mainPage .firstName{
+        line-height: 100px;
+        margin-bottom: -10px;
+    }
+
+    .mainPage .portfolio_block button {
+        margin-top: 40px;
+        padding-top: 25px;
+    }
+
+    .mainPage .portfolio_block{
+        top: 30%;
+    }
+
+    .mainPage .arrow{
+        margin-bottom: 10%;
+        position: absolute;
+        z-index: 200;
+    }
+}}

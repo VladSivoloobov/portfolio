@@ -10,10 +10,8 @@ import "./AboutPage_mobile.css";
 const scene = new Scene();
 const anna = new Anna();
 
-export function AboutPage({changeHeaderLink}){
+export function AboutPage({changeHeaderLink, scrolled}){
     const styles = {
-        
-        position: "absolute",
         transform: `translateY(calc(100% - ${window.scrollY}px))`
     }
 
@@ -65,7 +63,7 @@ export function AboutPage({changeHeaderLink}){
     }, [windowed, changeHeaderLink])
 
     return(
-        <div ref={ref} className="aboutPage" onTransitionEnd={() => {
+        <div ref={ref} data-scrolled={ scrolled ? "scrolled" : "not-scrolled"} className="aboutPage" onTransitionEnd={() => {
             window.addEventListener("scroll", (e) => {
                 if(window.scrollY < 300){
                     setInViewOptions({

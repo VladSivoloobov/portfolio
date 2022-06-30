@@ -20,6 +20,7 @@
       -moz-transform:translateZ(1px);
       -o-transform:translateZ(1px);
       transform:translateZ(1px);
+    will-change: transform;
 }
 
 .novel img.start{

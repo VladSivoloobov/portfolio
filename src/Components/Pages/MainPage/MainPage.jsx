@@ -26,10 +26,8 @@ export function MainPage(){
         zIndex: "10"
     }
 
-    const buttonScrollStyles = {
+    let buttonScrollStyles = {
         transform: `translate(${Math.floor(currentScroll)}px)`,
-        position: "relative",
-        // transition: "all 0.2s ease-out",
         zIndex: "10"
     }
 
@@ -51,7 +49,6 @@ export function MainPage(){
 
     const arrowScrollStyles = {
         bottom: `${Math.floor(currentScroll * 1.5)}px`,
-        // transition: "all 0.1s ease-out",
         zIndex: "3"
     }
 
