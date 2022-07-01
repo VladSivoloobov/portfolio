@@ -6,6 +6,12 @@ div[data-emotion="baffled"] img.start{
     transform: scale(1.05);
 }
 
-/* div[data-emotion="dreamed"] img.start{
-    
-} */
+div[data-emotion="glitched"] img{
+    top: 30%;
+    width: 35%;
+}
+
+div[data-emotion="none"] img{
+    transition: all 0.5s;
+    left: 90%;
+}

@@ -2,10 +2,11 @@ import React from "react";
 import "./Header.css";
 import "./Header_mobile.css";
 
-const Path = ({linkText, active}) => {
+const Path = ({linkText, active, onclick}) => {
     return(
         <li className={active === linkText ? "active" : "not-active"}>
-            <a href="#">{linkText}</a>
+            {/* <a onClick={onclick} href="#">{linkText}</a> */}
+            <button onClick={onclick}>{linkText}</button>
         </li>
     )
 }
@@ -17,8 +18,14 @@ export function Header({active}){
                 <a href="#">Портфолио</a>
             </div>
             <ul className="links">
-                <Path linkText="Главная" path="/" active={active}/>
-                <Path linkText="Обо мне" path="about" active={active}/>
+                <Path onclick={() => setTimeout(() => window.scrollTo({
+                    top: 1,
+                    behavior: "smooth"
+                }), 2)} linkText="Главная" active={active}/>
+                <Path onclick={() => setTimeout(() => window.scrollTo({
+                    top: 700,
+                    behavior: "smooth"
+                }), 2)} linkText="Обо мне" active={active}/>
                 <Path linkText="Связь" path="socialMedia" active={active}/>
             </ul>
         </header>

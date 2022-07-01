@@ -61,7 +61,7 @@
     width: 200px;
     height: 100px;
 }
-.mainPage button{
+.mainPage .portfolio_block button{
     margin-top: 30px;
     width: 95%;
     padding-left: 5%;
@@ -84,7 +84,7 @@
     line-height: 20px;
 }
 
-.mainPage button:hover{
+.mainPage .portfolio_block button:hover{
     cursor: pointer;
     background-image: url("../../../img/ui/button_negate.png");
     color: white;
@@ -92,6 +92,7 @@
 
 .name span{
     margin-right: 45px;
+    text-shadow: 2px 3px black;
 }
 
 .mainPage .arrow img{

@@ -5,7 +5,7 @@
 .aboutPage{
     height: inherit;
     width: 100%;
-    background-image: url("../../../img/bg.gif");
+    /* background-image: url("../../../img/bg.gif"); */
     position: sticky;
     background-size: cover;
     image-rendering: pixelated;
@@ -111,4 +111,16 @@ div[data-windowed="not-window"]{
 
 div[data-windowed="window"]{
     animation: slide 0.7s ease forwards;
+}
+
+@media (max-width: 1000px){
+    .girl img{
+        width: 40%;
+    }
+}
+
+@media (max-width: 1200px){
+    .girl img{
+        width: 30%;
+    }
 }

@@ -12,7 +12,7 @@ const anna = new Anna();
 
 export function AboutPage({changeHeaderLink, scrolled}){
     const styles = {
-        transform: `translateY(calc(100% - ${window.scrollY}px))`
+        transform: `translateY(calc(100% - ${window.scrollY}px))`,
     }
 
     //message data
@@ -44,7 +44,7 @@ export function AboutPage({changeHeaderLink, scrolled}){
             setAboutPageStyles({
                 position: "fixed",
                 transition: "transform 0.4s ease-out",
-                transform: "translateY(0)"
+                transform: "translateY(0)",
             });
             setWindowed(true);
         }        
@@ -83,12 +83,22 @@ export function AboutPage({changeHeaderLink, scrolled}){
                 }
             })
         }} style={ windowed ? aboutPageStyles : styles }>
-            <div className="novel">
+            <div style={{
+                backgroundImage: `url(${scene.background})`,
+                backgroundSize: "cover",
+                transition: "all 1s ease-out"
+            }} className="novel">
+                <div style={{
+                    width: "100%",
+                    height: "100%",
+                    backgroundColor: "rgba(0, 0, 0, 0.4)",
+                    position: "absolute",
+                }} className="shadow"></div>
                 <div className={audioButtonState ? "audio off" : "audio"} 
                     onClick={audioButtonState ? stopSound : playSound}
                 ></div>
                 <div className="girl" data-windowed={ windowed ? "window" : "not-window"} data-emotion={currentEmotion}>
-                    <img src={messageEmotion} alt="" onLoad={(e) => {
+                    <img src={currentEmotion !== "none" ? messageEmotion : anna.emotions.dreamed} alt="" onLoad={(e) => {
                         if(e.target.classList.contains("end"))
                             e.target.classList.replace("end", "start");
                         else
@@ -102,6 +112,7 @@ export function AboutPage({changeHeaderLink, scrolled}){
                     anna={anna}
                     windowed={windowed} 
                     setMessageEmotion={setMessageEmotion}
+                    setAudioButtonState={setAudioButtonState}
                     setCurrentEmotion={setCurrentEmotion}
                     audioButtonState={audioButtonState}
                     setInViewOptions={setInViewOptions}

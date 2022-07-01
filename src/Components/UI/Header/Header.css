@@ -19,26 +19,32 @@ header .links li{
     list-style: none;
 }
 
-header a{
+header button{
     color: #fff;
     transition: color 0.2s;
+    background: transparent;
+    border: 0;
+    text-shadow: 1px 1px black;
 }
 
-header .links li.active a{
+header .links li.active button{
     pointer-events: none;
 }
 
-header a:hover, header .links li.active a{
+header button:hover, header .links li.active button{
     color: #5F5F5F;
+    cursor: pointer;
 }
 
-header .links li a{
+header .links li button{
     font-size: 1.5em;
 }
 
 header .logo a{
     margin-left: 30px;
     font-size: 4em;
+    pointer-events: none;
+    text-shadow: 1px 1px black;
 }
 
 .logo svg{

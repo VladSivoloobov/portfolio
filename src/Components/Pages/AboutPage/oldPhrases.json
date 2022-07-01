@@ -1,0 +1,398 @@
+[
+    {
+        "messageText": "Ой... Совсем забыла! Меня зовут Анна, приятно познакомиться!",
+        "messageAutor": "Девочка",
+        "emotion": "baffled",
+        "timeout": 10
+    },
+    {
+        "messageText": "Насколько я знаю... Первое - это он любит писать всякие странные коды, которые я совсем не понимаю. Меня это даже пугает, а вдруг он создал и [timeout=200] меня?",
+        "messageAutor": "Анна",
+        "emotion": "dreamed",
+        "timeout": 20
+    },
+    {
+        "messageText": "Это было бы глупо и инфантильно",
+        "messageAutor": "Анна",
+        "emotion": "scornful",
+        "timeout": 5
+    },
+    {
+        "messageText": "Кстати, ты можешь услышать музыку и мой голос, если нажмёшь на кнопку слева. Хе-хе.",
+        "messageAutor": "Анна",
+        "emotion": "happy",
+        "timeout": 20,
+        "choices": [
+            {
+                "choiceText": "Включить",
+                "point": {
+                    "pointCount": 10,
+                    "pointType": "love"
+                },
+                "choiceLine": [
+                    {
+                        "messageText": "Хорошо, я включу...",
+                        "messageAutor": "Анна",
+                        "emotion": "dreamed",
+                        "runMusic": true
+                    }
+                ]
+            },
+            {
+                "choiceText": "Не включать",
+                "point": {
+                    "pointCount": 10,
+                    "pointType": "enemy"
+                }
+            }
+        ]
+    },
+    {
+        "messageText": "Я хоть и виртуальна, но лучше любой жены, ты меня можешь запросто заткнуть просто нажав на кнопку. И это даже не значит, что я какой-то робот",
+        "messageAutor": "Анна",
+        "emotion": "dreamed",
+        "timeout": 10
+    },
+    {
+        "messageText": "Прости меня за эту чушь",
+        "messageAutor": "Анна",
+        "emotion": "smile",
+        "timeout": 10
+    },
+    {
+        "messageText": "Влад не самый опытный программист, но он пытается развиваться в этой сфере",
+        "messageAutor": "Анна",
+        "emotion": "dreamed",
+        "timeout": 10
+    },
+    {
+        "messageText": "Кстати, что ты думаешь обо мне?",
+        "messageAutor": "Анна",
+        "choices": [
+            {
+                "choiceText": "Ты странная",
+                "point": {
+                    "pointCount": 10,
+                    "pointType": "enemy"
+                },
+                "choiceLine" : [
+                    {
+                        "messageText": "Что? С чего это вдруг?",
+                        "messageAutor": "Анна",
+                        "emotion": "scornful",
+                        "timeout": 20
+                    },
+                    {
+                        "messageText": "Мы с тобой просто ещё мало знакомы",
+                        "messageAutor": "Анна",
+                        "emotion": "happy",
+                        "timeout": 10
+                    }
+                ]
+            },
+            {
+                "choiceText": "Не знаю",
+                "point": {
+                    "pointCount": 10,
+                    "pointType": "friend"
+                },
+                "choiceLine": [
+                    {
+                        "messageText": "А ты подумай как-нибудь, хе-хе",
+                        "messageAutor": "Анна",
+                        "timeout": 30,
+                        "emotion": "happy"
+                    }
+                ]
+            },
+            {
+                "choiceText": "Ты милая девочка",
+                "point": {
+                    "pointCount": 10,
+                    "pointType": "friend"
+                },
+                "choiceLine": [
+                    {
+                        "messageText": "Ты думаешь я поведусь на эту лесть?",
+                        "messageAutor": "Анна",
+                        "timeout": 100,
+                        "emotion": "baffled",
+                        "stopMusic": true
+                    },
+                    {
+                        "messageText": "Да, я поведусь. Спасибо! Хи-хи",
+                        "messageAutor": "Анна",
+                        "timeout": 20,
+                        "emotion": "happy"
+                    }
+                ]
+            }
+        ],
+        "emotion": "dreamed",
+        "timeout": 10
+    },
+    {
+        "messageText": "Однажды я бывала в его компьютере, и видела очень много интересного",
+        "messageAutor": "Анна",
+        "emotion": "dreamed",
+        "timeout": 10
+    },
+    {
+        "messageText": "Он не обрадуется, если я расскажу, что именно",
+        "messageAutor": "Анна",
+        "emotion": "baffled",
+        "timeout": 10
+    },
+    {
+        "messageText": "Рассказать?",
+        "messageAutor": "Анна",
+        "emotion": "scornful",
+        "timeout": 20,
+        "choices": [
+            {
+                "choiceText": "Да",
+                "point": {
+                    "pointCount": 5,
+                    "pointType": "friend"
+                },
+                "choiceLine": [
+                    {
+                        "messageText": "Я всё равно не расскажу",
+                        "emotion": "happy",
+                        "messageAutor": "Анна"
+                    },
+                    {
+                        "messageText": "Уж прости меня",
+                        "timeout": 20,
+                        "messageAutor": "Анна",
+                        "emotion": "dreamed"
+                    }
+                ]
+            },
+            {
+                "choiceText": "Не стоит",
+                "point": {
+                    "pointType": "love",
+                    "pointCount": 10
+                },
+                "choiceLine" : [
+                    {
+                        "messageText": "Это так мило, что ты бережёшь его секреты, а в общем-то...",
+                        "timeout": 20,
+                        "emotion": "happy",
+                        "messageAutor": "Анна"
+                    },
+                    {
+                        "messageText": "Я бы и не рассказала, но ты поднялся в моих глазах",
+                        "timeout": 5,
+                        "emotion": "smile",
+                        "messageAutor": "Анна"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "messageText": "С тобой почти приятно общаться, когда-то в детстве мама меня постоянно ругала из-за того, что я занималась чем-то по их мнению бесполезным",
+        "messageAutor": "Анна",
+        "emotion": "scornful"
+    },
+    {
+        "messageText": "Мне правда было очень грустно из-за этого",
+        "messageAutor": "Анна",
+        "emotion": "dreamed",
+        "choices": [
+            {
+                "choiceText": "Я сожалею тебе",
+                "point": {
+                    "pointCount": 10,
+                    "pointType": "friend"
+                },
+                "choiceLine": [
+                    {
+                        "messageText": "Не надо меня жалеть, лучше пожалей самого себя",
+                        "emotion": "closedEyes",
+                        "messageAutor": "Анна"
+                    },
+                    {
+                        "messageText": "Я не люблю, когда меня [timeout=200] ЖАЛЕЮТ",
+                        "timeout": 80,
+                        "messageAutor": "Анна",
+                        "emotion": "scornful"
+                    }
+                ]
+            },
+            {
+                "choiceText": "Понятно",
+                "point": {
+                    "pointCount": 10,
+                    "pointType": "love"
+                },
+                "choiceLine": [
+                    {
+                        "messageText": "А когда я поступала в колледж меня обязывали поступить на парикмахера, но я не хотела быть парикмахером. Я закрылась тогда у себя в доме и плакала",
+                        "emotion": "tired",
+                        "messageAutor": "Анна"
+                    },
+                    {
+                        "messageText": "Почему я тебе всё это рассказываю?",
+                        "timeout": 20,
+                        "emotion": "dreamed",
+                        "messageAutor": "Анна"
+                    },
+                    {
+                        "messageText": "Просто ты классный, очень редко встречаю таких, как ты. Хи-хи",
+                        "timeout": 20,
+                        "emotion": "smile",
+                        "messageAutor": "Анна"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "messageText": "Давай лучше поговорим о тебе",
+        "messageAutor": "Анна",
+        "timeout": 20
+    },
+    {
+        "messageText": "Почему ты зашёл на этот сайт?",
+        "messageAutor": "Анна",
+        "timeout": 20,
+        "choices": [
+            {
+                "choiceText": "Просто",
+                "point": {
+                    "pointCount": 10,
+                    "pointType": "enemy"
+                },
+                "choiceLine": [
+                    {
+                        "messageText": "То есть ты хочешь сказать, что ты зашёл не ради меня?",
+                        "emotion": "baffled",
+                        "messageAutor": "Анна"
+                    },
+                    {
+                        "messageText": "Ты меня разочаровываешь...",
+                        "timeout": 80,
+                        "messageAutor": "Анна",
+                        "emotion": "scornful",
+                        "stopMusic": true
+                    }
+                ]
+            },
+            {
+                "choiceText": "Ты мне нравишься",
+                "point": {
+                    "pointCount": 10,
+                    "pointType": "love"
+                },
+                "choiceLine": [
+                    {
+                        "messageText": "Чт-тт-ттт-ооооо????",
+                        "timeout": 90,
+                        "emotion": "baffled",
+                        "messageAutor": "Анна"
+                    },
+                    {
+                        "messageText": "Это так мило",
+                        "timeout": 20,
+                        "emotion": "happy",
+                        "messageAutor": "Анна"
+                    },
+                    {
+                        "messageText": "А ты знал, что в пятидесятых годах прошлого века в Техасе кот по кличке Dusty поставил рекорд по плодовитости – за его долгую жизнь от него родилось более 400 котят. Причем последние котята от него родились, когда ему уже было более 18 лет",
+                        "timeout": 20,
+                        "emotion": "smile",
+                        "messageAutor": "Анна"
+                    },
+                    {
+                        "messageText": "Ты тоже мой котёнок",
+                        "timeout": 20,
+                        "emotion": "smile",
+                        "messageAutor": "Анна"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "messageText": "Аххххххххххх. Я забыла рассказать про Влада",
+        "messageAutor": "Анна",
+        "timeout": 10,
+        "emotion": "baffled"
+    },
+    {
+        "messageText": "Влад начинающий front end программист. Хотите посмотреть его работы?",
+        "messageAutor": "Анна",
+        "emotion": "smile",
+        "timeout": 15,
+        "choices": [
+            {
+                "choiceText": "Да",
+                "point": {
+                    "pointCount": 10,
+                    "pointType": "friend"
+                },
+                "choiceLine": [
+                    {
+                        "messageText": "Зайдите на его github",
+                        "messageAutor": "Анна",
+                        "timeout": 10,
+                        "emotion": "happy"
+                    }
+                ]
+            },
+            {
+                "choiceText": "Нет",
+                "point": {
+                    "pointType": "enemy",
+                    "pointCount": 10
+                },
+                "choiceLine": [
+                    {
+                        "messageText": "Эмммм. Хорошо, ты очень странный человек",
+                        "messageAutor": "Анна",
+                        "timeout": 10,
+                        "emotion": "closedEyes"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "messageText": "Влад учился в колледже на программиста, но по его словам преподаватели там были слишком странные и не понимали сами, что рассказывают",
+        "messageAutor": "Анна",
+        "emotion": "dreamed",
+        "timeout": 20
+    },
+    {
+        "messageText": "Странный колледж...",
+        "messageAutor": "Анна",
+        "emotion": "closedEyes",
+        "timeout": 10
+    },
+    {
+        "messageText": "Хочешь анекдот?",
+        "messageAutor": "Анна",
+        "emotion": "happy",
+        "timeout": 20,
+        "choices": [
+            {
+                "choiceText" : "Да",
+                "point": {
+                    "pointType": "love",
+                    "pointCount": 10
+                },
+                "choiceLine": [
+                    {
+                        "messageText": "Штирлиц напоил кота бензином - кот упал. Штирлиц подумал: \"бензин закончился\"",
+                        "emotion": "smile",
+                        "messageAutor": "Анна",
+                        "timeout": 10
+                    }
+                ]
+            }
+        ]
+    }
+]

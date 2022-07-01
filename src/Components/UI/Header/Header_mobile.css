@@ -23,3 +23,16 @@
         font-size: 0.5em;
     }
 }
+
+@media not all and (min-resolution:.001dpcm)
+{ @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+    header .links{
+        margin-top: 10px;
+    }
+    header button{
+        line-height: 40px;
+        text-shadow: 1px 1px black;
+        z-index: 2000;
+        display: none;
+    }
+}}

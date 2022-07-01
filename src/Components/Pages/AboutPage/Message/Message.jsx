@@ -4,9 +4,6 @@ import phrases from "../phrases.json";
 import "./Message.css";
 import "./Message_mobile.css";
 
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-const audioCtx = new AudioContext();
-
 function parseNovelTags(text){
     const startTimeout = text.indexOf("[timeout");
     const parsedTegTimeout = text.substring(
@@ -48,6 +45,11 @@ function parseNovelTags(text){
     };
 }
 
+let messageSkipped = false;
+let messageCounter = 0;
+let choiceLineCounter = 0;
+let firstMessageNotRunned = true;
+
 export function Message({
         anna,
         windowed,
@@ -55,31 +57,31 @@ export function Message({
         setCurrentEmotion,
         audioButtonState,
         setInViewOptions,
-        scene
+        scene,
+        setAudioButtonState
     }){
     const [messageText, setMessageText] = useState(0);
     const [messageAutor, setMessageAutor] = useState(0);
     const [slowedMessageText, setSlowedMessageText] = useState("");
+    const [choices, setChoices] = useState(null);
     const [messageCompleted, setMessageCompleted] = useState(false);
-    const [firstMessageNotRunned, setFirstMessageNotRunnded] = useState(true);
-    const [choiceLineCounter, setChoiceLineCounter] = useState(0);
 
     useEffect(() => {
         if(firstMessageNotRunned && windowed){
-            showMessage("Здравствуйте, вы искали Влада? Его здесь нету, но я знаю очень многое о нём. Могу рассказать...");
+            showMessage("Привет, меня зовут Анна. Я в данный момент заменяю Влада. Если ты хочешь, могу рассказать о нём");
             setInViewOptions({
                 threshold: 0.5
             });
         }
     }, [firstMessageNotRunned, windowed])
-
-    const [messageCounter, setMessageCounter] = useState(0);
-
-    const [choices, setChoices] = useState(null);
     
     async function runText(text, setState, timeout){
         let buffer = "";
         for(let i = 0; i < text.length; i++){
+            if(messageSkipped){
+                setState(text)
+                return;
+            }
             const letter = text[i];
             buffer += letter;
             setState(buffer);
@@ -90,14 +92,18 @@ export function Message({
         }
     }
 
-    function showMessage(text, autor = "Девочка", emotion = anna.emotions.smile, timeout = 20){
+    async function skipMessage(){
+        messageSkipped = true;
+    }
+
+    function showMessage(text, autor = "Анна", emotion = anna.emotions.smile, timeout = 20){
         setSlowedMessageText("");
         const parsedText = parseNovelTags(text);
         let runnableText = parsedText.timeout ? parsedText.leftText : parsedText.novellaText;
         let ms = timeout;
 
         setMessageEmotion(emotion);
-        setFirstMessageNotRunnded(false);
+        firstMessageNotRunned = false;
         setMessageAutor(autor);
         
         new Promise(async resolve => {
@@ -105,12 +111,13 @@ export function Message({
             await runText(runnableText, setMessageText, ms);
             if(parsedText.timeout){
                 const rightText = parsedText.rightText;
-                await runText(rightText, setSlowedMessageText, parsedText.timeout ? parsedText.timeout : ms, resolve);
+                runText(rightText, setSlowedMessageText, parsedText.timeout ? parsedText.timeout : ms);
             }
             resolve(1);
         })
         .then(() => {
            setMessageCompleted(true);
+           messageSkipped = false;
         });
     }
 
@@ -123,7 +130,7 @@ export function Message({
         let messages = choiceLine ? choiceLine : phrases;
         let messageIterator = choiceLine ? choiceLineCounter : messageCounter;
         if(choiceLine && choiceLineCounter > choiceLine?.length - 1){
-            setChoiceLineCounter(0);
+            choiceLineCounter = 0;
             messages = phrases;
             messageIterator = messageCounter;
             setChoiceLineState(null);
@@ -131,8 +138,13 @@ export function Message({
         }
 
         const stopMusic = messages[messageIterator]?.stopMusic;
+        const runMusic = messages[messageIterator]?.runMusic;
+
         if(stopMusic)
             scene.currentMusic.pause();
+        
+        if(runMusic)
+            setAudioButtonState(true);
 
         setCurrentEmotion(messages[messageIterator].emotion);
 
@@ -142,12 +154,17 @@ export function Message({
         const currentMessageText = messages[messageIterator].messageText;
         const currentMessageAutor = messages[messageIterator].messageAutor;
         const currentChoices = messages[messageIterator].choices;
+        const background = messages[messageIterator]?.background;
+
+        if(background){
+            scene.changeBackground(background);
+        }
 
         if(choiceLine){
-            setChoiceLineCounter(choiceLineCounter + 1);
+            choiceLineCounter++;
         }
         else{
-            setMessageCounter(messageCounter + 1);
+            messageCounter++;
         }
         showMessage(currentMessageText, currentMessageAutor, currentEmotion, messages[messageIterator].timeout);
         if(currentChoices){
@@ -161,9 +178,24 @@ export function Message({
 
     return (
         <div 
-            className={messageCompleted && !choices ? "message-block completed" : "message-block"}
+            className={(() => {
+                // messageCompleted && !choices ? "message-block completed" : "message-block"
+                if(messageCompleted && !choices)
+                    return "message-block completed"
+                else if(!messageCompleted && !choices)
+                    return "message-block not-completed"
+                else 
+                    return "message-block"
+            })()}
             data-choiced={choices ? "choices-true" : "choices-false"}
-            onClick={messageCompleted && !choices ? function(){nextMessage(choiceLineState)} : null}
+            onClick={(() => {
+                if(messageCompleted && !choices)
+                    return () => nextMessage(choiceLineState)
+                else if(!messageCompleted)
+                    return skipMessage
+                else 
+                    return null
+            })()}
             data-windowed={ windowed ? "window" : "not-window"}
             >
             <div className="message-name">
@@ -171,7 +203,10 @@ export function Message({
             </div>
             <div className="message-text">
                 {messageText} <span className={slowedMessageText.length > 0 ? "slowed-message-text" : "span"}>{slowedMessageText}</span>
-                {choices ? <Choice nextMessage={nextMessage} setChoiceLineState={setChoiceLineState} setMessageCounter={setMessageCounter} messageCounter={messageCounter} anna={anna} choices={choices} setChoices={setChoices} /> : <div></div>}
+                {choices && messageCompleted ? <Choice nextMessage={nextMessage}
+                                setChoiceLineState={setChoiceLineState}
+                                anna={anna} choices={choices}
+                                setChoices={setChoices} /> : <div></div>}
             </div>
         </div>
     )
