@@ -23,9 +23,7 @@
     will-change: transform;
 }
 
-.novel img.start{
-    transform: scaleY(1.01);
-}
+
 
 .audio{
     image-rendering: pixelated;
@@ -89,6 +87,10 @@
     z-index: 1;
     image-rendering: pixelated;
     transition: all 0.4s ease-out;
+}
+
+.girl img.start{
+    transform: scaleY(1.01);
 }
 
 .novel img.end{

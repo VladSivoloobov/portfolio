@@ -68,16 +68,22 @@ export function Message({
 
     useEffect(() => {
         if(firstMessageNotRunned && windowed){
-            showMessage("Привет, меня зовут Анна. Я в данный момент заменяю Влада. Если ты хочешь, могу рассказать о нём");
+            showMessage("Привет, меня зовут Анна. Я в данный момент заменяю Влада. Если ты хочешь, могу рассказать о нём", "Анна", "smile", 30);
             setInViewOptions({
                 threshold: 0.5
             });
         }
     }, [firstMessageNotRunned, windowed])
-    
+
     async function runText(text, setState, timeout){
         let buffer = "";
-        for(let i = 0; i < text.length; i++){
+        const talkingAnimation = anna.animations.talking;
+        for(let i = 0, animationIterator = 0; i < text.length; i++, animationIterator++){
+            if(animationIterator > talkingAnimation.length - 1){
+                animationIterator = 0;
+            }
+
+            let newTimeout = timeout;
             if(messageSkipped){
                 setState(text)
                 return;
@@ -85,11 +91,41 @@ export function Message({
             const letter = text[i];
             buffer += letter;
             setState(buffer);
-            if(audioButtonState && letter !== " "){
+            if(audioButtonState && 
+                (letter !== " " || letter !== "," || letter !== "!" || letter !== "?" || letter !== "." )
+            ){
                 new Audio(anna.voice).play();
             }
-            await timeOut(timeout);
+
+            switch(letter){
+                case ",":
+                    newTimeout *= 10;
+                    break;
+                case ".":
+                    newTimeout *= 20;
+                    break;
+                case "?":
+                    newTimeout *= 19;
+                    break;
+                default:
+                    break;
+            }
+
+            if(letter === "," || letter === "." || letter === "?"){
+                const annaIdleAnimation = anna.animations.idle;
+                const randomIter = getRandomArbitrary(0, annaIdleAnimation.length);
+                setMessageEmotion(annaIdleAnimation[randomIter]);
+            }
+            else{
+                setMessageEmotion(talkingAnimation[animationIterator]);
+                
+            }
+            await timeOut(newTimeout);
         }
+    }
+
+    function getRandomArbitrary(min, max) {
+        return Math.floor(Math.random() * (max - min) + min);
     }
 
     async function skipMessage(){
@@ -151,10 +187,39 @@ export function Message({
         let currentEmotion = anna.emotions[`${messages[messageIterator].emotion}`] ? 
                                 anna.emotions[`${messages[messageIterator].emotion}`] :
                                 anna.emotions.smile;
-        const currentMessageText = messages[messageIterator].messageText;
+        let currentMessageText = messages[messageIterator].messageText;
         const currentMessageAutor = messages[messageIterator].messageAutor;
         const currentChoices = messages[messageIterator].choices;
         const background = messages[messageIterator]?.background;
+        
+        if(messages[messageIterator]?.currentDate){
+            const hours = new Date().getHours();
+            const minutes = new Date().getMinutes();
+            const ms = new Date().getMilliseconds();
+
+            function convertWord(date, dateType){
+                const lastNumber = +date.toString()[date.toString().length - 1]
+
+                function strings(first, second, third){
+                    if(lastNumber === 1)
+                        return `${date} ${first}`;
+                    else if(lastNumber === 2 || lastNumber === 3)
+                        return `${date} ${second}`;
+                    else if(lastNumber >= 5 || lastNumber === 0)
+                        return `${date} ${third}`;
+                }
+
+                if(dateType?.hours)
+                    return strings("час", "часа", "часов");
+                else if(dateType?.minutes)
+                    return strings("минута", "минуты", "минут")
+                else if(dateType?.ms)
+                    return strings("миллисекунда", "миллисекунды", "миллисекунд");
+            }
+
+            currentMessageText += ` в ${convertWord(hours, {hours: true})}, ${convertWord(minutes, {minutes: true})}, ${convertWord(ms, {ms: true})}, ${hours > 21 || hours < 5 ? "это очень поздно!" : ""}`;
+        }
+
 
         if(background){
             scene.changeBackground(background);

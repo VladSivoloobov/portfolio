@@ -31,6 +31,7 @@ export function AboutPage({changeHeaderLink, scrolled}){
 
     function playSound(){
         scene.currentMusic.play();
+        scene.currentMusic.loop = true;
         setAudioButtonState(true);
     }
 
