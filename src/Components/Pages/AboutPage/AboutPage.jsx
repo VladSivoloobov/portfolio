@@ -9,16 +9,16 @@ import "./AboutPage_mobile.css";
 
 const scene = new Scene();
 const anna = new Anna();
+let musicPlayed = false;
+
 
 export function AboutPage({changeHeaderLink, scrolled}){
     const styles = {
         transform: `translateY(calc(100% - ${window.scrollY}px))`,
     }
 
-    //message data
     const [messageEmotion, setMessageEmotion] = useState(anna.emotions.smile);
     const [currentEmotion, setCurrentEmotion] = useState("smile");
-    // *********************************************************
 
     const [inViewOptions, setInViewOptions] = useState({
         threshold: 0.5
@@ -31,12 +31,14 @@ export function AboutPage({changeHeaderLink, scrolled}){
 
     function playSound(){
         scene.currentMusic.play();
+        musicPlayed = true;
         scene.currentMusic.loop = true;
         setAudioButtonState(true);
     }
 
     function stopSound(){
         scene.currentMusic.pause();
+        musicPlayed = false;
         setAudioButtonState(false);
     }
 
@@ -118,6 +120,7 @@ export function AboutPage({changeHeaderLink, scrolled}){
                     audioButtonState={audioButtonState}
                     setInViewOptions={setInViewOptions}
                     scene={scene}
+                    musicPlayed={musicPlayed}
                 />
             </div>
         </div>

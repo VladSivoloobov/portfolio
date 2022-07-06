@@ -49,6 +49,7 @@ let messageSkipped = false;
 let messageCounter = 0;
 let choiceLineCounter = 0;
 let firstMessageNotRunned = true;
+let musicPlayed = false;
 
 export function Message({
         anna,
@@ -58,13 +59,20 @@ export function Message({
         audioButtonState,
         setInViewOptions,
         scene,
-        setAudioButtonState
+        setAudioButtonState,
     }){
     const [messageText, setMessageText] = useState(0);
     const [messageAutor, setMessageAutor] = useState(0);
     const [slowedMessageText, setSlowedMessageText] = useState("");
     const [choices, setChoices] = useState(null);
     const [messageCompleted, setMessageCompleted] = useState(false);
+
+    useEffect(() => {
+        if(audioButtonState)
+            musicPlayed = true;
+        else
+            musicPlayed = false;
+    });
 
     useEffect(() => {
         if(firstMessageNotRunned && windowed){
@@ -91,7 +99,7 @@ export function Message({
             const letter = text[i];
             buffer += letter;
             setState(buffer);
-            if(audioButtonState && 
+            if(musicPlayed && 
                 (letter !== " " || letter !== "," || letter !== "!" || letter !== "?" || letter !== "." )
             ){
                 new Audio(anna.voice).play();
@@ -191,32 +199,35 @@ export function Message({
         const currentMessageAutor = messages[messageIterator].messageAutor;
         const currentChoices = messages[messageIterator].choices;
         const background = messages[messageIterator]?.background;
+        const currentVoice = messages[messageIterator]?.voice;
         
+        if(currentVoice){
+            switch(currentVoice){
+                case "angry":
+                    anna.changeVoice({
+                        angry: true,
+                    });
+                    break;
+                case "standard":
+                    anna.changeVoice({
+                        standard: true,
+                    })
+                    break;
+                default:
+                    break;
+            }
+        }
+        else{
+            anna.changeVoice({
+                standard: true,
+            });
+        }
+            
+
         if(messages[messageIterator]?.currentDate){
             const hours = new Date().getHours();
             const minutes = new Date().getMinutes();
             const ms = new Date().getMilliseconds();
-
-            function convertWord(date, dateType){
-                const lastNumber = +date.toString()[date.toString().length - 1]
-
-                function strings(first, second, third){
-                    if(lastNumber === 1)
-                        return `${date} ${first}`;
-                    else if(lastNumber === 2 || lastNumber === 3)
-                        return `${date} ${second}`;
-                    else if(lastNumber >= 5 || lastNumber === 0)
-                        return `${date} ${third}`;
-                }
-
-                if(dateType?.hours)
-                    return strings("час", "часа", "часов");
-                else if(dateType?.minutes)
-                    return strings("минута", "минуты", "минут")
-                else if(dateType?.ms)
-                    return strings("миллисекунда", "миллисекунды", "миллисекунд");
-            }
-
             currentMessageText += ` в ${convertWord(hours, {hours: true})}, ${convertWord(minutes, {minutes: true})}, ${convertWord(ms, {ms: true})}, ${hours > 21 || hours < 5 ? "это очень поздно!" : ""}`;
         }
 
@@ -236,6 +247,26 @@ export function Message({
             setChoices(currentChoices);
         }
     }    
+
+    function convertWord(date, dateType){
+        const lastNumber = +date.toString()[date.toString().length - 1]
+
+        function strings(first, second, third){
+            if(lastNumber === 1)
+                return `${date} ${first}`;
+            else if(lastNumber === 2 || lastNumber === 3)
+                return `${date} ${second}`;
+            else if(lastNumber >= 5 || lastNumber === 0)
+                return `${date} ${third}`;
+        }
+
+        if(dateType?.hours)
+            return strings("час", "часа", "часов");
+        else if(dateType?.minutes)
+            return strings("минута", "минуты", "минут")
+        else if(dateType?.ms)
+            return strings("миллисекунда", "миллисекунды", "миллисекунд");
+    }
 
     async function timeOut(ms){
         return new Promise(resolve => setTimeout(() => resolve(1), ms));

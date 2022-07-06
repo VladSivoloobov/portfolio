@@ -5,7 +5,6 @@ import scornful from "./src/anna/tile004.png";
 import dreamed from "./src/anna/tile005.png";
 import tired from "./src/anna/tile006.png";
 import smile from "./src/anna/tile000.png";
-import glitched from "./src/annaBlack/glitched.gif";
 
 import animationTalk_0 from "./src/anna/animation/talking/talk_0.png";
 import animationTalk_2 from "./src/anna/animation/talking/talk_2.png";
@@ -17,9 +16,8 @@ import animatitonIdle_2 from "./src/anna/animation/idle/idle_2.png"
 import animatitonIdle_3 from "./src/anna/animation/idle/idle_3.png"
 import animatitonIdle_4 from "./src/anna/animation/idle/idle_4.png"
 
-import darkHappy from "./src/annaBlack/tile000.png";
-
 import voice from "./src/sound/voice.mp3";
+import angryVoice from "./src/sound/angryVoice.mp3";
 
 export class Anna{
     lovePoints = 0;
@@ -34,12 +32,17 @@ export class Anna{
         scornful, // Анна презрительна
         dreamed, // Анна мечтательна
         tired, // Анна устала
-        none: "none",
-        // Анна взрослая
-        glitched,
-        darkHappy
     }
     voice = voice;
+    changeVoice({angry, standard}){
+        if(angry){
+            this.voice = angryVoice
+        }
+        else if(standard){
+            this.voice = voice
+        }
+    }
+
     animations = {
         talking: [
             animationTalk_0,
