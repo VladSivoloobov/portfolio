@@ -9,8 +9,6 @@ import "./AboutPage_mobile.css";
 
 const scene = new Scene();
 const anna = new Anna();
-let musicPlayed = false;
-
 
 export function AboutPage({changeHeaderLink, scrolled}){
     const styles = {
@@ -31,14 +29,14 @@ export function AboutPage({changeHeaderLink, scrolled}){
 
     function playSound(){
         scene.currentMusic.play();
-        musicPlayed = true;
         scene.currentMusic.loop = true;
+        scene.musicPlayed = true;
         setAudioButtonState(true);
     }
 
     function stopSound(){
         scene.currentMusic.pause();
-        musicPlayed = false;
+        scene.musicPlayed = false;
         setAudioButtonState(false);
     }
 
@@ -120,7 +118,7 @@ export function AboutPage({changeHeaderLink, scrolled}){
                     audioButtonState={audioButtonState}
                     setInViewOptions={setInViewOptions}
                     scene={scene}
-                    musicPlayed={musicPlayed}
+                    musicPlayed={scene.musicPlayed}
                 />
             </div>
         </div>

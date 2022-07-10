@@ -3,80 +3,46 @@ import { Choice } from "../Choice/Choice";
 import phrases from "../phrases.json";
 import "./Message.css";
 import "./Message_mobile.css";
+import { dialogs } from "../Novel/dialogs.js";
+import { getRandomArbitrary, convertWord } from "../../../../global.js";
+import {Scene} from "../Novel/Scene";
 
-function parseNovelTags(text){
-    const startTimeout = text.indexOf("[timeout");
-    const parsedTegTimeout = text.substring(
-        text.indexOf("timeout") - 1,
-        text.indexOf("]") + 1
-    );
-
-    let timeout = parsedTegTimeout.replace(
-        "[timeout=",
-        ""
-    );
-
-    timeout = +timeout.replace("]", "");
-    const novellaText = text.replace(parsedTegTimeout, "");
-    
-    if(!timeout){
-        return {
-            novellaText: text
-        }
-    }
-
-    const leftText = novellaText.substring(
-        0,
-        startTimeout
-    );
-
-    const rightText = novellaText.substring(
-        startTimeout,
-        novellaText.length
-    );
-
-    return {
-        startTimeout,
-        timeout,
-        parsedTegTimeout,
-        novellaText,
-        leftText,
-        rightText
-    };
-}
 
 let messageSkipped = false;
 let messageCounter = 0;
-let choiceLineCounter = 0;
 let firstMessageNotRunned = true;
 let musicPlayed = false;
+let choiceLineCounter = 0;
 
 export function Message({
         anna,
         windowed,
         setMessageEmotion,
-        setCurrentEmotion,
         audioButtonState,
         setInViewOptions,
-        scene,
         setAudioButtonState,
+        scene
     }){
     const [messageText, setMessageText] = useState(0);
     const [messageAutor, setMessageAutor] = useState(0);
     const [slowedMessageText, setSlowedMessageText] = useState("");
     const [choices, setChoices] = useState(null);
     const [messageCompleted, setMessageCompleted] = useState(false);
+    const [variants, setVariants] = useState(null);
+    const messages = dialogs(scene, anna);
 
     useEffect(() => {
         if(audioButtonState)
             musicPlayed = true;
         else
             musicPlayed = false;
+
+        new Scene(setAudioButtonState); // Передача хука в класс синглтон
     });
 
     useEffect(() => {
         if(firstMessageNotRunned && windowed){
-            showMessage("Привет, меня зовут Анна. Я в данный момент заменяю Влада. Если ты хочешь, могу рассказать о нём", "Анна", "smile", 30);
+            showMessage(messages[0].messageText, messages[0].autor, messages[0].emotion, messages[0].timeout)
             setInViewOptions({
                 threshold: 0.5
             });
@@ -100,7 +66,7 @@ export function Message({
             buffer += letter;
             setState(buffer);
             if(musicPlayed && 
-                (letter !== " " || letter !== "," || letter !== "!" || letter !== "?" || letter !== "." )
+                !(letter === " " || letter === "," || letter === "!" || letter === "?" || letter === "." )
             ){
                 new Audio(anna.voice).play();
             }
@@ -132,31 +98,22 @@ export function Message({
         }
     }
 
-    function getRandomArbitrary(min, max) {
-        return Math.floor(Math.random() * (max - min) + min);
-    }
-
-    async function skipMessage(){
-        messageSkipped = true;
-    }
+    useEffect(() => {
+        if(scene.musicPlayed)
+            setAudioButtonState(true);
+        else
+            setAudioButtonState(false);
+    }, [scene, setAudioButtonState])
 
     function showMessage(text, autor = "Анна", emotion = anna.emotions.smile, timeout = 20){
-        setSlowedMessageText("");
-        const parsedText = parseNovelTags(text);
-        let runnableText = parsedText.timeout ? parsedText.leftText : parsedText.novellaText;
         let ms = timeout;
-
         setMessageEmotion(emotion);
         firstMessageNotRunned = false;
         setMessageAutor(autor);
         
         new Promise(async resolve => {
             setMessageCompleted(false);
-            await runText(runnableText, setMessageText, ms);
-            if(parsedText.timeout){
-                const rightText = parsedText.rightText;
-                runText(rightText, setSlowedMessageText, parsedText.timeout ? parsedText.timeout : ms);
-            }
+            await runText(text, setMessageText, ms);
             resolve(1);
         })
         .then(() => {
@@ -164,109 +121,38 @@ export function Message({
            messageSkipped = false;
         });
     }
-
-    const [choiceLineState, setChoiceLineState] = useState(null);
+  
 
     function nextMessage(choiceLine){
-        if(audioButtonState)
-            scene.currentMusic.play();
+        setChoices(null);
+        let currentDialog;
 
-        let messages = choiceLine ? choiceLine : phrases;
-        let messageIterator = choiceLine ? choiceLineCounter : messageCounter;
-        if(choiceLine && choiceLineCounter > choiceLine?.length - 1){
+        if(choiceLine && choiceLineCounter < choiceLine.variantDialogs.length){
+            currentDialog = choiceLine.variantDialogs[choiceLineCounter++];
+        }
+        else
+        {
+            currentDialog = messages[++messageCounter];
             choiceLineCounter = 0;
-            messages = phrases;
-            messageIterator = messageCounter;
-            setChoiceLineState(null);
-            choiceLine = null;
         }
 
-        const stopMusic = messages[messageIterator]?.stopMusic;
-        const runMusic = messages[messageIterator]?.runMusic;
-
-        if(stopMusic)
-            scene.currentMusic.pause();
-        
-        if(runMusic)
-            setAudioButtonState(true);
-
-        setCurrentEmotion(messages[messageIterator].emotion);
-
-        let currentEmotion = anna.emotions[`${messages[messageIterator].emotion}`] ? 
-                                anna.emotions[`${messages[messageIterator].emotion}`] :
-                                anna.emotions.smile;
-        let currentMessageText = messages[messageIterator].messageText;
-        const currentMessageAutor = messages[messageIterator].messageAutor;
-        const currentChoices = messages[messageIterator].choices;
-        const background = messages[messageIterator]?.background;
-        const currentVoice = messages[messageIterator]?.voice;
-        
-        if(currentVoice){
-            switch(currentVoice){
-                case "angry":
-                    anna.changeVoice({
-                        angry: true,
-                    });
-                    break;
-                case "standard":
-                    anna.changeVoice({
-                        standard: true,
-                    })
-                    break;
-                default:
-                    break;
-            }
-        }
-        else{
-            anna.changeVoice({
-                standard: true,
-            });
+        if(currentDialog?.callbackOutside){
+            if(currentDialog?.runMusic) 
+                setAudioButtonState(true);
         }
             
 
-        if(messages[messageIterator]?.currentDate){
-            const hours = new Date().getHours();
-            const minutes = new Date().getMinutes();
-            const ms = new Date().getMilliseconds();
-            currentMessageText += ` в ${convertWord(hours, {hours: true})}, ${convertWord(minutes, {minutes: true})}, ${convertWord(ms, {ms: true})}, ${hours > 21 || hours < 5 ? "это очень поздно!" : ""}`;
-        }
+        showMessage(
+            currentDialog.messageText, currentDialog?.autor,
+            currentDialog?.emotion, currentDialog?.timeout
+        );
+        
+        const choice = currentDialog?.choice;
 
-
-        if(background){
-            scene.changeBackground(background);
+        if(choice){
+            setChoices(choice);
         }
-
-        if(choiceLine){
-            choiceLineCounter++;
-        }
-        else{
-            messageCounter++;
-        }
-        showMessage(currentMessageText, currentMessageAutor, currentEmotion, messages[messageIterator].timeout);
-        if(currentChoices){
-            setChoices(currentChoices);
-        }
-    }    
-
-    function convertWord(date, dateType){
-        const lastNumber = +date.toString()[date.toString().length - 1]
-
-        function strings(first, second, third){
-            if(lastNumber === 1)
-                return `${date} ${first}`;
-            else if(lastNumber === 2 || lastNumber === 3)
-                return `${date} ${second}`;
-            else if(lastNumber >= 5 || lastNumber === 0)
-                return `${date} ${third}`;
-        }
-
-        if(dateType?.hours)
-            return strings("час", "часа", "часов");
-        else if(dateType?.minutes)
-            return strings("минута", "минуты", "минут")
-        else if(dateType?.ms)
-            return strings("миллисекунда", "миллисекунды", "миллисекунд");
-    }
+    } 
 
     async function timeOut(ms){
         return new Promise(resolve => setTimeout(() => resolve(1), ms));
@@ -275,7 +161,6 @@ export function Message({
     return (
         <div 
             className={(() => {
-                // messageCompleted && !choices ? "message-block completed" : "message-block"
                 if(messageCompleted && !choices)
                     return "message-block completed"
                 else if(!messageCompleted && !choices)
@@ -286,9 +171,9 @@ export function Message({
             data-choiced={choices ? "choices-true" : "choices-false"}
             onClick={(() => {
                 if(messageCompleted && !choices)
-                    return () => nextMessage(choiceLineState)
+                    return () => nextMessage(variants);
                 else if(!messageCompleted)
-                    return skipMessage
+                    return () => messageSkipped = true;
                 else 
                     return null
             })()}
@@ -299,10 +184,11 @@ export function Message({
             </div>
             <div className="message-text">
                 {messageText} <span className={slowedMessageText.length > 0 ? "slowed-message-text" : "span"}>{slowedMessageText}</span>
-                {choices && messageCompleted ? <Choice nextMessage={nextMessage}
-                                setChoiceLineState={setChoiceLineState}
-                                anna={anna} choices={choices}
-                                setChoices={setChoices} /> : <div></div>}
+                {choices && messageCompleted ? <Choice
+                                anna={anna} choice={choices} 
+                                variants={variants}
+                                setVariants={setVariants}
+                                nextMessage={nextMessage}/> : <div></div>}
             </div>
         </div>
     )

@@ -19,7 +19,13 @@ import animatitonIdle_4 from "./src/anna/animation/idle/idle_4.png"
 import voice from "./src/sound/voice.mp3";
 import angryVoice from "./src/sound/angryVoice.mp3";
 
+let instance;
+
 export class Anna{
+    constructor(){
+        if(!instance) instance = this;
+        return instance;
+    }
     lovePoints = 0;
     friendPoints = 0;
     enemyPoints = 0;
