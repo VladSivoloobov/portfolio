@@ -21,9 +21,8 @@
       -o-transform:translateZ(1px);
       transform:translateZ(1px);
     will-change: transform;
+    background-position: center center;
 }
-
-
 
 .audio{
     image-rendering: pixelated;
@@ -113,16 +112,4 @@ div[data-windowed="not-window"]{
 
 div[data-windowed="window"]{
     animation: slide 0.7s ease forwards;
-}
-
-@media (max-width: 1000px){
-    .girl img{
-        width: 40%;
-    }
-}
-
-@media (max-width: 1200px){
-    .girl img{
-        width: 30%;
-    }
 }

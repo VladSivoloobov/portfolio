@@ -27,15 +27,28 @@ export function AboutPage({changeHeaderLink, scrolled}){
     const [aboutPageStyles, setAboutPageStyles] = useState(styles);
     const [audioButtonState, setAudioButtonState] = useState(false);
 
-    function playSound(){
+    function playSound(){          
         scene.currentMusic.play();
         scene.currentMusic.loop = true;
         scene.musicPlayed = true;
+        scene.ambience.volume = 0.8;
+        scene.ambience.play();
+        scene.ambience.loop = true;
         setAudioButtonState(true);
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden){
+                scene.currentMusic.pause();
+                scene.musicPlayed = false;
+                scene.ambience.pause();
+                setAudioButtonState(false);
+            }
+        })
     }
 
     function stopSound(){
         scene.currentMusic.pause();
+        scene.ambience.pause();
         scene.musicPlayed = false;
         setAudioButtonState(false);
     }
@@ -60,6 +73,7 @@ export function AboutPage({changeHeaderLink, scrolled}){
             changeHeaderLink("Главная");
             setAudioButtonState(false);
             scene.currentMusic.pause();
+            scene.ambience.pause();
         }
     }, [windowed, changeHeaderLink])
 

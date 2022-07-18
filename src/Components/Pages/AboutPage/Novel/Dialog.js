@@ -1,9 +1,13 @@
+import styled from "styled-components";
+
+const defaultStyled = styled.div``;
+
 export class Dialog{
     constructor(
         { 
             messageText, autor, timeout = 40, stopMusic = false, 
             runMusic = false, animation, emotion, choice, callbackInside,
-            callbackOutside 
+            callbackOutside
         }, 
     ){
         if(!messageText)
@@ -16,6 +20,7 @@ export class Dialog{
         this.animation = animation;
         this.emotion = emotion;
         this.choice = choice;
+
         this.callbackOutside = callback => {
             if(callback)
                 callback();

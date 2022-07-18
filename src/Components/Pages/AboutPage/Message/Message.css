@@ -19,6 +19,10 @@
     position: relative;
 }
 
+.message-text span{
+    font-family: Undertale;
+}
+
 .message-text, .message-name{
     background-color: #0E001D;
     border: 7px solid #2A0035;

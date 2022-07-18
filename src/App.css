@@ -31,6 +31,7 @@ body{
     touch-action: pan-x pan-y;
     scroll-behavior: smooth;
     background-color: #2A0035;
+    overscroll-behavior: none;
 }
 
 #root{

@@ -1,18 +1,20 @@
 import React, {useState, useEffect} from "react";
-import { Choice } from "../Choice/Choice";
-import phrases from "../phrases.json";
 import "./Message.css";
 import "./Message_mobile.css";
 import { dialogs } from "../Novel/dialogs.js";
 import { getRandomArbitrary, convertWord } from "../../../../global.js";
-import {Scene} from "../Novel/Scene";
-
+import { MessageText } from "./MessageText";
+import {Howler, Howl} from "howler";
 
 let messageSkipped = false;
 let messageCounter = 0;
 let firstMessageNotRunned = true;
 let musicPlayed = false;
 let choiceLineCounter = 0;
+let fullMessageText = "";
+
+const windowHeight = window.innerHeight;
+let iosAddressBarVisible = false;
 
 export function Message({
         anna,
@@ -23,9 +25,9 @@ export function Message({
         setAudioButtonState,
         scene
     }){
-    const [messageText, setMessageText] = useState(0);
+
+    const [messageText, setMessageText] = useState("");
     const [messageAutor, setMessageAutor] = useState(0);
-    const [slowedMessageText, setSlowedMessageText] = useState("");
     const [choices, setChoices] = useState(null);
     const [messageCompleted, setMessageCompleted] = useState(false);
     const [variants, setVariants] = useState(null);
@@ -36,12 +38,17 @@ export function Message({
             musicPlayed = true;
         else
             musicPlayed = false;
-
-        new Scene(setAudioButtonState); // Передача хука в класс синглтон
+        window.addEventListener("scroll", () => {
+            if(windowHeight !== window.innerHeight)
+                iosAddressBarVisible = true;
+            else 
+                iosAddressBarVisible = false;
+        })
     });
 
     useEffect(() => {
         if(firstMessageNotRunned && windowed){
+            
             showMessage(messages[0].messageText, messages[0].autor, messages[0].emotion, messages[0].timeout)
             setInViewOptions({
                 threshold: 0.5
@@ -68,7 +75,10 @@ export function Message({
             if(musicPlayed && 
                 !(letter === " " || letter === "," || letter === "!" || letter === "?" || letter === "." )
             ){
-                new Audio(anna.voice).play();
+                const sound = new Howl({
+                    src: [anna.voice],
+                });
+                sound.play();
             }
 
             switch(letter){
@@ -105,7 +115,9 @@ export function Message({
             setAudioButtonState(false);
     }, [scene, setAudioButtonState])
 
-    function showMessage(text, autor = "Анна", emotion = anna.emotions.smile, timeout = 20){
+    function showMessage(text, autor = "Анна", emotion = anna.emotions.smile, timeout = 20){ 
+        fullMessageText = text;
+        console.log(fullMessageText)       
         let ms = timeout;
         setMessageEmotion(emotion);
         firstMessageNotRunned = false;
@@ -132,15 +144,23 @@ export function Message({
         }
         else
         {
+            setVariants(null);
             currentDialog = messages[++messageCounter];
             choiceLineCounter = 0;
         }
 
-        if(currentDialog?.callbackOutside){
-            if(currentDialog?.runMusic) 
-                setAudioButtonState(true);
+        if(currentDialog.runMusic) 
+        {
+            scene.currentMusic.play();
+            scene.currentMusic.loop = true;
+            scene.ambience.play();
+            scene.ambience.loop = true;
+            setAudioButtonState(true);
         }
-            
+
+        if(currentDialog?.callbackOutside){
+            currentDialog.callbackOutside();
+        }
 
         showMessage(
             currentDialog.messageText, currentDialog?.autor,
@@ -159,7 +179,7 @@ export function Message({
     }
 
     return (
-        <div 
+        <div style={iosAddressBarVisible ? {top: "80px"} : {}}
             className={(() => {
                 if(messageCompleted && !choices)
                     return "message-block completed"
@@ -182,14 +202,16 @@ export function Message({
             <div className="message-name">
                 {messageAutor}
             </div>
-            <div className="message-text">
-                {messageText} <span className={slowedMessageText.length > 0 ? "slowed-message-text" : "span"}>{slowedMessageText}</span>
-                {choices && messageCompleted ? <Choice
-                                anna={anna} choice={choices} 
-                                variants={variants}
-                                setVariants={setVariants}
-                                nextMessage={nextMessage}/> : <div></div>}
-            </div>
+            <MessageText 
+                messageText={messageText}
+                choices={choices}
+                anna={anna}
+                variants={variants}
+                setVariants={setVariants}
+                nextMessage={nextMessage}
+                messageCompleted={messageCompleted}
+                fullMessageText={fullMessageText}
+            />
         </div>
     )
 }

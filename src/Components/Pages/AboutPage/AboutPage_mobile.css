@@ -1,6 +1,8 @@
 @media (max-width: 500px){
     .aboutPage{
         background-position: 30% center;
+        padding-top: env(safe-area-inset-bottom, 20px);
+;
     }
     .audio{
         top: 12%;
@@ -12,8 +14,31 @@
         z-index: 200;
         box-shadow: none;
     }
+
+    .girl{
+        
+    }
+
     .girl img{
         margin-bottom: 10px;
-        width: 85%;
+        width: 80%;
+    }
+}
+
+@media (max-width: 560px) and (min-width: 500px){
+    .girl img{
+        width: 60%;
+    }
+}
+
+@media (min-width: 560px) and (max-width: 700px){
+    .girl img{
+        width: 50%;
+    }
+}
+
+@media (min-width: 700px) and (max-width: 900px){
+    .girl img{
+        width: 40%;
     }
 }

@@ -4,12 +4,12 @@ export const dialogs = (scene, anna) => {
     return (
         [
             new Dialog({
-                messageText: "Привет! Меня зовут Анна. Я расскажу всё о Владиславе Сиволобове",
-                autor: "Анна"
+                messageText: "Привет! Меня зовут Анна. Я создана для того, чтобы рассказать тебе о Владе",
+                autor: "Анна",
             }),
             new Dialog({
                 messageText: "В данный момент его тут нету, он не говорил, куда ушёл. Просто оставив меня на этом сайте за главную",
-                autor: "Анна"
+                autor: "Анна",
             }),
             new Dialog({
                 messageText: "Кстати, ты можешь включить музыку и услышать мой голос нажав на кнопку слева сверху. А ещё я могу один раз это сделать за тебя",
@@ -20,7 +20,7 @@ export const dialogs = (scene, anna) => {
                             variantText: "Включи",
                             variantDialogs: [
                                 new Dialog({
-                                    messageText: "Хорошо, ты услышишь музыку уже после следующего сообщения",
+                                    messageText: "Хорошо, я включу музыку",
                                     autor: "Анна",
                                     runMusic: true,
                                     callbackOutside: (props) => {
@@ -49,7 +49,11 @@ export const dialogs = (scene, anna) => {
                             variantText: "Просто",
                             variantDialogs: [
                                 new Dialog({
-                                    messageText: "Я никогда не поверю, что ты сюда зашёл просто так"
+                                    messageText: "Я никогда не поверю, что ты сюда зашёл просто так",
+                                    callbackInside: (props) => {
+                                        const date = new Date();
+                                        props.messageText += ` в ${date.getHours()} час, ${date.getHours() > 21 || date.getHours < 6 ? "это очень поздно" : "тебе делать нечего?"}`
+                                    }
                                 })
                             ]
                         },

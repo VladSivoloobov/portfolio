@@ -1,4 +1,4 @@
-@media (max-width: 500px){
+@media (min-width: 200px) and (max-width: 900px){
     header{
         width: 100%;
         left: 20px;
