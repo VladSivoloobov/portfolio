@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "./static/css/main.b683e5bc.css",
+    "main.js": "./static/js/main.c7120154.js",
+    "static/media/ambience.mp3": "./static/media/ambience.a102bdd54f53b457d2f5.mp3",
+    "static/media/ost.mp3": "./static/media/ost.be400690ac2255f4964a.mp3",
+    "static/media/Fifaks10Dev1.ttf": "./static/media/Fifaks10Dev1.126fc8fbc938b6dffa14.ttf",
+    "static/media/bg.gif": "./static/media/bg.d84551f4b2c4909929ca.gif",
+    "static/media/background.gif": "./static/media/background.ebb6cb3a231043445341.gif",
+    "static/media/Undertale-Battle-Font.ttf": "./static/media/Undertale-Battle-Font.4ca303e5e47dd0610bd6.ttf",
+    "static/media/angryVoice.mp3": "./static/media/angryVoice.427a20f378b7fa142f9f.mp3",
+    "static/media/voice.mp3": "./static/media/voice.85d5b722688ee8261deb.mp3",
+    "index.html": "./index.html",
+    "main.b683e5bc.css.map": "./static/css/main.b683e5bc.css.map",
+    "main.c7120154.js.map": "./static/js/main.c7120154.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b683e5bc.css",
+    "static/js/main.c7120154.js"
+  ]
+}
