@@ -34,7 +34,11 @@ export const dialogs = (scene, anna) => {
                             variantText: "Не включай",
                             variantDialogs: [
                                 new Dialog({
-                                    messageText: "Не буду включать"
+                                    messageText: "Не буду включать",
+                                    callbackOutside: (props) => {
+                                        if(scene.musicPlayed)
+                                            props.messageText = "Да, я тоже так думаю, ведь музыка уже включена. Я могу только отключить её"
+                                    }
                                 })
                             ]
                         }
@@ -149,28 +153,8 @@ export const dialogs = (scene, anna) => {
                 })
             }),
             new Dialog({
-                messageText: "А ты девочка или мальчик?",
-                choice: new Choice({
-                    variants: [
-                        {
-                            variantText: "Девочка",
-                            variantDialogs: [
-                                new Dialog({
-                                    messageText: "Ой, ой, ой, прости, что я к тебе обращалась в мужском роде. Этого больше не повторится, обещаю"
-                                })
-                            ]
-                        },
-                        {
-                            variantText: "Мальчик",
-                            variantDialogs: [
-                                new Dialog({
-                                    messageText: "Хорошо, я так и знала!!"
-                                })
-                            ]
-                        }
-                    ]
-                })
-            })
+                messageText: "Здесь закончена ознакомительная версия сайта"
+            }),
         ]
     )
 }

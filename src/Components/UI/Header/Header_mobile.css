@@ -30,9 +30,12 @@
         margin-top: 10px;
     }
     header button{
-        line-height: 40px;
+        font-size: 1em;
+        font-family: Undertale;
         text-shadow: 1px 1px black;
         z-index: 2000;
-        display: none;
+    }
+    header .links li button{
+        font-size: 1.3em;
     }
 }}

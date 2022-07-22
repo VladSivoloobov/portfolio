@@ -2,7 +2,6 @@
     .aboutPage{
         background-position: 30% center;
         padding-top: env(safe-area-inset-bottom, 20px);
-;
     }
     .audio{
         top: 12%;

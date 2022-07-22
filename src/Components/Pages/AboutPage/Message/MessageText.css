@@ -60,3 +60,7 @@ span[data-waitword="припомню"]{
     color: var(--main-color);
 }
 
+div[data-text="Здесь закончена ознакомительная версия сайта"]
+span[data-word="ознакомительная"]{
+    color: var(--main-color);
+}

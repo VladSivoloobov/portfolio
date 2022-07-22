@@ -14,7 +14,6 @@ let choiceLineCounter = 0;
 let fullMessageText = "";
 
 const windowHeight = window.innerHeight;
-let iosAddressBarVisible = false;
 
 export function Message({
         anna,
@@ -38,12 +37,6 @@ export function Message({
             musicPlayed = true;
         else
             musicPlayed = false;
-        window.addEventListener("scroll", () => {
-            if(windowHeight !== window.innerHeight)
-                iosAddressBarVisible = true;
-            else 
-                iosAddressBarVisible = false;
-        })
     });
 
     useEffect(() => {
@@ -179,7 +172,7 @@ export function Message({
     }
 
     return (
-        <div style={iosAddressBarVisible ? {top: "80px"} : {}}
+        <div
             className={(() => {
                 if(messageCompleted && !choices)
                     return "message-block completed"

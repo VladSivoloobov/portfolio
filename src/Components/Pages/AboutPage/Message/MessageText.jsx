@@ -2,8 +2,6 @@ import React from "react";
 import { Choice } from "../Choice/Choice";
 import "./MessageText.css";
 
-const windowHeight = window.innerHeight;
-
 export const MessageText = ({messageText, choices, 
     anna, variants, fullMessageText, 
     setVariants, nextMessage, messageCompleted}) => (
