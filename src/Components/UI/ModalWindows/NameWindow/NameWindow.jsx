@@ -100,6 +100,7 @@ export const NameWindow = ({player, handleModalWindowFinished, handleModalWindow
                             nameWindow.current.classList.add("finished");
                             handleModalWindowFinished(true);
                             handleModalWindowStarted(false);
+                            localStorage.setItem("player", JSON.stringify(player));
                         }
                         else{
                             nameInput.current.classList.add("missed");

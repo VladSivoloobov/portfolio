@@ -41,6 +41,14 @@ export function Message({
     
     const [variants, setVariants] = useState(null);
     const messages = dialogs(scene, player, anna);   
+    
+    useEffect(() => {
+        const savedMessageCounter = localStorage.getItem("messageCounter");
+        if(savedMessageCounter){
+            showMessage("Давай продолжим там где остановились?", "Анна", anna.emotions.smile, 0);
+            messageCounter = +savedMessageCounter;
+        }
+    }, [])
 
     useEffect(() => {
         let idleEmotionIterator =  0;
@@ -63,6 +71,10 @@ export function Message({
         else
             musicPlayed = false;
     });
+
+    useEffect(() => {
+        localStorage.setItem("anna", JSON.stringify(anna));
+    })
 
     useEffect(() => {
         if(firstMessageNotRunned && windowed){
@@ -106,13 +118,13 @@ export function Message({
 
             switch(letter){
                 case ",":
-                    newTimeout *= 10;
+                    newTimeout = 300;
                     break;
                 case ".":
-                    newTimeout *= 20;
+                    newTimeout = 400;
                     break;
                 case "?":
-                    newTimeout *= 19;
+                    newTimeout = 200;
                     break;
                 default:
                     break;
@@ -145,15 +157,21 @@ export function Message({
         firstMessageNotRunned = false;
         setMessageAutor(autor);
         
-        new Promise(async resolve => {
-            messageCompleted = false;
-            await runText(text, setMessageText, ms, soundOff);
-            resolve(1);
-        })
-        .then(() => {
-           messageCompleted = true;
-           messageSkipped = false;
-        });
+        if(timeout){
+            new Promise(async resolve => {
+                messageCompleted = false;
+                await runText(text, setMessageText, ms, soundOff);
+                resolve(1);
+            }).then(() => {
+                messageCompleted = true;
+                messageSkipped = false;
+             });
+        }
+        else{
+            setMessageText(text);
+            messageCompleted = true;
+            messageSkipped = false;
+        }       
     }
 
     useEffect(() => {
@@ -174,6 +192,7 @@ export function Message({
     }
 
     function nextMessage(choiceLine){
+        localStorage.setItem("messageCounter", messageCounter.toString());
         setChoices(null);
         let currentDialog;
 

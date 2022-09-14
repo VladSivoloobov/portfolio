@@ -10,9 +10,8 @@ import { NameWindow } from "../../UI/ModalWindows/NameWindow/NameWindow";
 import { Player } from "./Novel/Player";
 
 const scene = new Scene();
-const anna = new Anna();
-const player = new Player();
-console.log(player)
+const anna = localStorage.getItem("anna") ? JSON.parse(localStorage.getItem("anna")) : new Anna();
+const player = localStorage.getItem("player") ? JSON.parse(localStorage.getItem("player")) : new Player();
 
 let modalWindowFinished = false;
 let modalWindowStarted = false;
