@@ -1,0 +1,81 @@
+:root{
+    --main-color: #a3147d;
+}
+
+.message-text span{
+    transition: all 0.5s;
+    display: inline-block;
+}
+
+.message-text span.space{
+    margin: 0 5px;
+}
+
+span[data-word="Влад"]{
+    color: var(--main-color);
+    font-weight: bold;
+}
+
+
+div[data-text="Привет! Меня зовут Анна. Я создана для того, чтобы рассказать тебе о Владе"]
+span[data-word="Владе"]{
+    color: var(--main-color);
+    font-weight: bold;
+}
+
+div[data-text="Привет! Меня зовут Анна. Я создана для того, чтобы рассказать тебе о Владе"]
+span[data-word="Анна."]{
+    font-weight: bold;
+}
+
+div[data-text="Привет! Меня зовут Анна. Я создана для того, чтобы рассказать тебе о Владе"]
+span[data-word="Владе"]:hover{
+    transform: scale(1.35) translate(23%);
+}
+
+div[data-waittext="Привет! Меня зовут Анна. Я создана для того, чтобы рассказать тебе о Владе"]
+span[data-waitword="Владе"]{
+    transform: scale(1.5) translate(20%);
+}
+
+
+div[data-text="Кстати, ты можешь включить музыку и услышать мой голос нажав на кнопку слева сверху. А ещё я могу один раз это сделать за тебя"]
+span[data-word="кнопку"]{
+    color: #8F477D;
+}
+
+
+div[data-text="Но ведь музыка уже включена. Я не могу включить то, что итак работает, хихи"]
+span[data-word="включена."]{
+    color: var(--main-color);
+    font-weight: bold;
+}
+
+div[data-text="Но мне совершенно не нравится, что ты меня назвал шизанутой, я это тебе припомню"]
+span[data-waitword="припомню"]{
+    transform: translateY(-900%) scale(1.5);
+    transition: all 10s ease-out;
+    opacity: 0;
+    font-weight: bold;
+    color: var(--main-color);
+}
+
+div[data-text="Здесь закончена ознакомительная версия сайта"]
+span[data-word="ознакомительная"]{
+    color: var(--main-color);
+}
+
+div[data-text="Почему ты до сих пор на этом сайте? Что тобою движет? Зачем?"]
+span[data-word="Почему"]{
+    color: var(--main-color);
+}
+
+div[data-text="Почему ты до сих пор на этом сайте"]
+span[data-word="Почему"]{
+    color: var(--main-color);
+}
+
+div[data-text="Почему ты до сих пор на этом сайте"]
+span[data-word="Почему"]{
+    color: var(--main-color);
+}

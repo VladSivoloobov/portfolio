@@ -1,0 +1,121 @@
+:root{
+    --continue-color: #FFEAFA;
+}
+
+.aboutPage{
+    width: 100%;
+    /* background-image: url("../../../img/bg.gif"); */
+    position: sticky;
+    background-size: cover;
+    image-rendering: pixelated;
+    left: 0;
+	right: 0;
+	bottom: 0;
+	padding-bottom: 70px;
+	transform: translateY(70px);
+    z-index: 1000;
+    height: 100vh;    
+    -webkit-transform:translateZ(1px);
+      -moz-transform:translateZ(1px);
+      -o-transform:translateZ(1px);
+      transform:translateZ(1px);
+    will-change: transform;
+    background-position: center center;
+}
+
+.audio{
+    image-rendering: pixelated;
+    width: 80px;
+    height: 80px;
+    background-image: url("../../../img/ui/Audio/C_Buttons34.png");
+    position: absolute;
+    left: 4%;
+    top: 20%;
+    background-size: contain;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, .4);
+    border-radius: 20px;
+    transition: background 0.2s;
+}
+
+.audio:hover{
+    cursor: pointer;
+}
+
+.audio.off{
+    background-image: url("../../../img/ui/Audio/C_Buttons36.png");
+}
+
+.novel{
+    --opacity-background: rgba(0, 0, 0, .4);
+    background-color: var(--opacity-background);
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    background-image: url("../../../img/bg.gif");
+    background-position: center right;
+    image-rendering: pixelated;
+}
+
+.girl{
+    user-select: none;
+    pointer-events: none;
+}
+
+@keyframes idle {
+    from{
+        transform: none;
+    }   
+    to{
+        transform: scaleX(1.02);
+    }
+}
+
+.girl{
+    width: 100%;
+    text-align: center;
+}
+
+.girl img{
+    width: 25%;
+    position: relative;
+    top: 70px;
+    z-index: 1;
+    image-rendering: pixelated;
+    transition: all 0.4s ease-out;
+}
+
+.girl img.start{
+    transform: scaleY(1.01);
+}
+
+.novel img.end{
+    transform: none;
+}
+
+@keyframes slide{
+    from{
+        transform: translate(100%);
+    }
+    to{
+        transform: translate(0);
+    }
+}
+
+div[data-windowed="not-window"]{
+    transition: transform 0.5s;
+    transform: translate(120%);
+}
+
+div[data-windowed="window"]{
+    animation: slide 0.7s ease forwards;
+}
+
+.mainPage[data-windowed="not-windowed"] .novel{
+    background-image: url("../../../img/frame_000_delay-0.03s.gif");
+}

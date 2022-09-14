@@ -1,0 +1,101 @@
+@media (max-width: 500px){
+    .aboutPage{
+        background-position: 30% center;    
+    }
+    .audio{
+        top: 12%;
+        width: 60px;
+        height: 110px;
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+        z-index: 200;
+        box-shadow: none;
+    }
+
+    .girl img{
+        margin-bottom: 10px;
+        width: 80%;
+        bottom: 0;
+    }
+
+}
+
+@media (max-width: 560px) and (min-width: 500px){
+    .girl img{
+        width: 60%;
+    }
+}
+
+@media (min-width: 560px) and (max-width: 700px){
+    .girl img{
+        width: 50%;
+    }
+}
+
+@keyframes animationBackground {
+    from{
+        background-position-x: 0;
+    }
+    to{
+        background-position: 100%;
+    }
+}
+
+@media (max-width: 700px) {
+    .novel{
+        animation: animationBackground 200s infinite alternate-reverse ease-out;
+    }
+}
+
+@media (min-width: 700px) and (max-width: 900px){
+    .girl img{
+        width: 40%;
+    }
+}
+
+@media screen and (orientation: landscape) and (max-height: 500px) {
+    .girl img{
+        width: 30%;
+        top: 40%;
+    }
+
+    .message-block{
+        height: 100px;
+    }
+
+    .audio{
+        top: 19%;
+        width: 60px;
+        height: 110px;
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+        z-index: 200;
+        box-shadow: none;
+    }
+}
+
+@media (max-width: 700px){
+    .novel[data-maxqulity=false]{
+        background-image: url("../../../img/frame_000_delay-0.03s.gif");
+    }
+}
+
+@media not all and (min-resolution:.001dpcm)
+{ @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+    .novel{
+        height: 100%;
+    }
+    
+    .message-block{
+        padding-bottom: calc(50px - env(safe-area-inset-bottom));
+    }
+}}
+
+@media screen and (min-resolution:.001dpcm) and (orientation: portrait)
+{ @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+    .girl img{
+        width: 80%;
+    }
+}}
