@@ -1,0 +1,31 @@
+div[data-reaction="heartbreak"]::before{
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 30%;
+    right: 5%;   
+    background-image: url("../../../../img/emotions/PngItem_1207833.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    animation: heartbreak 1s ease-out forwards;
+}
+
+@keyframes heartbreak {
+    0%{
+        opacity: 0;
+        transform: scale(0);
+    }
+    50%{
+        opacity: 1;
+        transform: scale(2);
+    }
+    80%{
+        transform: scale(2.2) rotate(10deg);
+    }
+    100%{
+        opacity: 0;
+        transform: scale(2.2) rotate(10deg);
+    }
+}

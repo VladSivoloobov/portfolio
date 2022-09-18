@@ -1,0 +1,4 @@
+.novel[data-params="max-shadow"] .shadow{
+    transition: opacity 0.1s;
+    background-color: black;
+}

@@ -1,0 +1,19 @@
+@media (max-width: 500px){
+    .choices{
+        justify-content: space-around;
+        align-items: center;
+        padding-top: 10px;
+    }
+
+    .choice{
+        text-align: center;
+        width: 100px;
+        padding: 0;
+        margin: 0;
+    }
+}
+
+@media not all and (min-resolution:.001dpcm)
+{ @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+    
+}}

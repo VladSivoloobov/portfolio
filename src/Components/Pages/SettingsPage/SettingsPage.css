@@ -1,0 +1,34 @@
+.settingsPage{
+    padding-top: 15px;
+    width: 100%;
+    height: 100%;  
+}
+
+.settingsPage .settingsPage__header{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+    position: relative;
+}
+
+.settingsPage__header h2{
+    font-size: 20px;
+}
+
+.settingsPage__header .back{
+    margin-right: auto;
+    position: absolute;
+    left: 10px;
+}
+
+.settingsPage__settings{
+    margin-top: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.settingsPage__settings .quality{
+    
+}

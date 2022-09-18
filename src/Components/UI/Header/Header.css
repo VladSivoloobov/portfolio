@@ -1,0 +1,70 @@
+header{
+    width: 85%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    height: 120px;
+    z-index: 1001;
+    position: sticky;
+}
+
+header ul{
+    list-style-type: none;
+}
+
+.hamburger, .hamburger-menu{
+    display: none;
+}
+
+header .links{
+    display: flex;
+    align-items: center;
+}
+
+header .links li{
+    margin-right: 40px;
+    list-style: none;
+    font-size: 0.6em;
+}
+
+header button{
+    color: #fff;
+    transition: color 0.2s;
+    background: transparent;
+    border: 0;
+    text-shadow: 1px 1px black;
+}
+
+header li.active{
+    pointer-events: none;
+}
+
+header button:hover, header .links li.active button, header li.active button{
+    color: #5F5F5F;
+    cursor: pointer;
+}
+
+@media (hover: none) {
+    header button:hover { color: #fff; }
+}
+
+header .links li button{
+    font-size: 1.5em;
+}
+
+header .logo a{
+    margin-left: 30px;
+    font-size: 2em;
+    pointer-events: none;
+    text-shadow: 1px 1px black;
+}
+
+.logo svg{
+    font-size: 0.8em;
+    stroke-width: 5px;
+}
+
+.links svg{
+    stroke-width: 3px;
+}

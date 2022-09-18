@@ -1,0 +1,228 @@
+.message-block{
+    height: 150px;
+    width: 80%;
+    margin-bottom: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 2;
+    
+}
+
+.message-text{
+    height: 100%;
+    width: 95%;
+    padding: 30px;
+    color: #FFEAFA;
+    background-color: #0E001D;
+    font-size: 1.5em;
+    border-radius: 0 10px 10px 10px;
+    position: relative;
+    transition: border-radius 0.5s;
+}
+
+
+
+.message-block[data-messageautor="none"] .message-name{   
+    animation: hideMessageName 0.5s ease-in forwards;
+    color: transparent;
+    text-shadow: none;
+    
+}
+
+.novel[data-annaclose="true"] .message-block{
+    height: 100%;
+    width: 100%;
+    
+}
+
+.novel[data-annaclose="true"] .message-text{
+    border: 0;
+    position: absolute;
+    background: transparent;
+    height: 100%;
+    width: 100%;
+    flex-wrap: wrap;
+    display: flex;
+    align-items: flex-end;
+    font-size: 30px;
+}
+
+.novel[data-annaclose="true"] .message-block.not-completed .message-text::after{
+    content: "Пропустить";
+    position: absolute;
+    right: 10%;
+    bottom: 20px;
+    overflow: hidden;
+    animation: 0.3s slideUp;
+    color: var(--continue-color);
+    transition: color 0.2s;
+    z-index: 1;
+}
+
+.novel[data-annaclose="true"] .message-block.completed .message-text::after{
+    content: "Далее";
+    position: absolute;
+    right: 13%;
+    bottom: 20px;
+    overflow: hidden;
+    animation: 0.3s slideUp;
+    color: var(--continue-color);
+    transition: color 0.2s;
+    z-index: 1;
+    font-size: 20px;
+}
+
+.novel[data-annaclose="true"] .message-name{
+    transition: none;
+    opacity: 0;
+    background: transparent;
+    color: transparent;
+    text-shadow: none;
+}
+
+.novel[data-annaclose="true"] .shadow{
+    background: linear-gradient(to top, black, rgba(0,0,0,0));
+}
+
+.message-block[data-messageautor="none"] .message-text{
+    transition: border-radius 1s 0.5s;
+    border-radius: 10px;
+}
+
+.message-block .message-name{
+    animation: visibleMessageName 0.5s;
+}
+
+@keyframes visibleMessageName {
+    0%{
+        opacity: 0;
+        transform: translate(-100px);
+    }
+    100%{
+        opacity: 1;
+        transform: translate(0);
+    }
+}
+
+@keyframes hideMessageName {
+    0%{
+        opacity: 1;
+        transform: translate(0);
+    }
+    100%{
+        opacity: 0;
+        transform: translate(-100px);
+    }
+}
+
+.message-text span{
+    font-family: Undertale;
+}
+
+.message-text, .message-name{
+    background-color: #0E001D;
+    border: 7px solid #2A0035;
+    font-family: Undertale;
+    user-select: none;
+}
+
+.message-name{
+    width: max-content;
+    min-width: 200px;
+    font-size: 2em;
+    color: #FFEAFA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 10px 10px 0 0;
+    border-bottom: none;
+    
+}
+
+@keyframes messageUp {
+    0%{
+        transform: translate(0);
+        opacity: 1;
+        letter-spacing: 8px;
+    }
+    10%{
+        color: rgb(138, 48, 48);
+    }
+    60%{
+        transform: translateY(-1000%) scale(3);
+        color: rgb(138, 48, 48);
+    }
+    80%{
+        transform: translateY(-1000%) scale(3);
+        color: rgb(138, 48, 48);
+    }
+    100%{
+        transform: translate(0);
+        opacity: 1;
+        font-size: 1em;
+        padding-left: 0;
+        position: static;
+        letter-spacing: 0;
+        padding: 0;
+        display: inline;
+        padding: 0;
+    }
+}
+
+.slowed-message-text{
+    font-size: 1em;
+    font-family: Undertale;   
+    animation: messageUp 3.5s forwards ease-out;
+    display: inline-block;
+    text-shadow: 1px 1px black;
+}
+
+@keyframes messageScale{
+    from{
+        transform: translate(100%) scale(0);
+    }
+    to{
+        transform: translate(0) scale(1);
+    }
+}
+
+.message-block.not-completed .message-text::after{
+    content: "Пропустить";
+    position: absolute;
+    right: 30px;
+    bottom: 20px;
+    overflow: hidden;
+    animation: 0.3s slideUp;
+    color: var(--continue-color);
+    transition: color 0.2s;
+    z-index: 1;
+}
+
+.message-text:hover{
+    cursor: pointer;
+    --continue-color: #943E7D;
+}
+
+.message-block.completed .message-text::after{
+    content: "Далее";
+    position: absolute;
+    right: 30px;
+    bottom: 20px;
+    overflow: hidden;
+    animation: 0.3s slideUp;
+    color: var(--continue-color);
+    transition: color 0.2s;
+    z-index: 1;
+}
+
+@keyframes slideUp{
+    from{
+        transform: scale(0);
+    }
+    to{
+        transform: 0;
+    }
+}
+

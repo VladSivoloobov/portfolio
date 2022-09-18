@@ -1,0 +1,341 @@
+.NameWindow{
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    position: absolute;
+    z-index: 100000000000000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    animation: nameWindowOpacity .5s ease-out forwards;
+}
+
+@keyframes nameWindowOpacity {
+    from{
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.NameWindow .NameWindow-nameInput{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.NameWindow .NameWindow-container{
+    margin-top: 10%;
+    margin-bottom: 15%;
+}
+
+.NameWindow .NameWindow-title{
+    margin-bottom: 15%;
+    font-size: 5vw;
+}
+
+.NameWindow label{
+    font-size: 3vw;
+}
+
+.NameWindow input[type="value"]{
+    width: 55%;
+    border-radius: 0;
+    outline: none;
+    height: 3vw;
+    margin: 0 20px;
+    border: 0;
+    padding: 1px 5px;
+    font-size: 20px;
+}
+
+.NameWindow h2{
+    position: relative;
+}
+
+.NameWindow h2 .name{
+    font-size: 4vw;
+    position: absolute;
+    margin-top: 15px;
+}
+
+.NameWindow h2 .comma{
+    position: absolute;
+}
+
+.NameWindow .NameWindow-genderInput{
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.NameWindow select{
+    width: 55%;
+    border-radius: 0;
+    outline: none;
+    height: 2.9vw;
+    margin: 0 20px;
+    border: 0;
+    padding: 1px 5px;
+    font-size: 20px;
+    -ms-box-sizing:content-box;
+    -moz-box-sizing:content-box;
+    -webkit-box-sizing:content-box; 
+    box-sizing: content-box;
+    color: black;
+}
+
+.NameWindow .sendButtons{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10%;
+}
+
+.NameWindow button{
+    border: 0;
+    background: none;
+    color: white;
+    font-size: 30px;
+    transition: color 0.1s;
+}
+
+.NameWindow button:hover{
+    color: purple;
+    cursor: pointer;
+}
+
+.NameWindow input.missed{
+    outline: 2px solid purple;
+    animation: missed 0.1s alternate ease-out;
+    position: relative;
+}
+
+.NameWindow input.missed::after{
+    content: "Ты не назвал имя...";
+    color: white;
+    font-size: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    background-color: aqua;
+    height: 20px;
+}
+
+.NameWindow.finished{
+    animation: nameWindowHide 1s forwards;
+}
+
+@keyframes nameWindowHide {
+    from{
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to{
+        opacity: 0;
+        transform: translateY(100%);
+    }
+}
+
+@keyframes missed {
+    from{
+        transform: scale(1);
+    }
+    to{
+        transform: scale(1.1) rotate(1deg);
+    }
+}
+
+.liza{
+    height: 100%;
+    position: absolute;
+    font-size: 30px;
+    color: palegoldenrod;
+    z-index: -100;
+}
+
+.pops{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.pop{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform: translate(0, -100px);
+}
+
+.pop:nth-child(even){
+    font-size: 50px;
+}
+
+.pop:nth-child(odd){
+    font-size: 70px;
+}
+
+.pop:nth-child(1){
+    animation: ease-out firstPop 10s infinite;
+}
+
+.pop:nth-child(2){
+    animation: ease-out firstPop 8s infinite;
+}
+
+.pop:nth-child(3){
+    animation: ease-out thirdPop 5s infinite;
+}
+
+.pop:nth-child(4){
+    animation: ease-out fourthPop 12s infinite;
+}
+
+.pop:nth-child(5){
+    animation: ease-out fivePop 9s infinite;
+}
+
+.pop:nth-child(6){
+    animation: ease-out fivePop 6s infinite;
+}
+
+.pop:nth-child(7){
+    animation: ease-out sevenPop 15s infinite;
+}
+
+.pop:nth-child(7){
+    animation: ease-out sevenPop 15s infinite;
+}
+
+.pop:nth-child(8){
+    animation: ease-out eightPop 19s infinite;
+}
+
+.pop:nth-child(9){
+    animation: ease-out ninePop 4s infinite;
+    display: none;
+}
+
+.pop:nth-child(10){
+    animation: ease-out tenPop 4s infinite;
+}
+
+.pop:nth-child(11){
+    animation: ease-out elevenPop 4s infinite;
+}
+
+@keyframes elevenPop {
+    from{
+        transform: translate(150px, -100px);
+    }
+    to{
+        transform: translate(150px, 100%) rotate(30deg);
+    }
+}
+
+@keyframes tenPop {
+    from{
+        transform: translate(120px, -100px);
+    }
+    to{
+        transform: translate(120px, 100%) rotate(20deg);
+    }
+}
+
+@keyframes eightPop {
+    from{
+        transform: translate(100px, -100px);
+    }
+    to{
+        transform: translate(100px, 100%) rotate(-2deg) scale(1.1);
+    }
+}
+
+@keyframes eightPop {
+    from{
+        transform: translate(80px, -100px);
+    }
+    to{
+        transform: translate(80px, 100%) rotate(-2deg);
+    }
+}
+
+@keyframes sevenPop {
+    from{
+        transform: translate(50px, -100px);
+    }
+    to{
+        transform: translate(50px, 100%) rotate(-2deg);
+    }
+}
+
+
+@keyframes sixPop {
+    from{
+        transform: translate(10px, -100px);
+    }
+    to{
+        transform: translate(10px, 100%) rotate(-2deg);
+    }
+}
+
+@keyframes fivePop {
+    from{
+        transform: translate(0, -100px);
+    }
+    to{
+        transform: translate(-50px, 100%) rotate(-12deg);
+    }
+}
+
+@keyframes fourthPop {
+    from{
+        transform: translate(-50px, -100px);
+    }
+    to{
+        transform: translate(-100px, 100%) rotate(12deg);
+    }
+}
+
+@keyframes thirdPop {
+    from{
+        transform: translate(-50px, -100px);
+    }
+    to{
+        transform: translate(-200px, 100%) rotate(12deg);
+    }
+}
+
+@keyframes secondPop {
+    from{
+        transform: translate(-100px, -100px);
+    }
+    to{
+        transform: translate(-600px, 100%) rotate(5deg);
+    }
+}
+
+@keyframes firstPop {
+    from{
+        transform: translate(-200px, -100px);
+    }
+    to{
+        transform: translate(-400px, 100%) rotate(20deg);
+    }
+}
+
+.liza.standard .pop:nth-child(odd){
+    font-size: 20px;
+    color: rgb(49, 49, 49);
+    z-index: -100;
+}
+
+.liza.standard .pop:nth-child(even){
+    color: rgb(83, 83, 83);
+    z-index: -99;
+    font-size: 25px;
+}

@@ -1,0 +1,32 @@
+@media (max-width: 500px) {
+    .NameWindow .NameWindow-title{
+        margin-bottom: 15%;
+        font-size: 50px;
+        text-shadow: none;
+        text-align: center;
+    }
+    .NameWindow label{
+        font-size: 20px;
+    }
+    .NameWindow input[type="value"]{
+        width: 40%;
+        height: 30px;
+    }
+    .NameWindow select{
+        width: 35%;
+        height: 30px;
+    }
+    .NameWindow-genderInput, .NameWindow-nameInput{
+        margin: 0 15px;
+    }
+
+    .NameWindow button{
+        font-size: 25px;
+    }
+
+    .NameWindow h2 .name{
+        font-size: 35px;
+        right: 40px;
+        margin-top: 5px;
+    }
+}
