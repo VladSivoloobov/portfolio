@@ -15,6 +15,7 @@
     transition: background 0.5s;
 }
 
+
 .mainPage[data-windowed="windowed"]{
     background-image: url("../../../img/frame_00_delay-0.08s.gif");
 }
@@ -27,6 +28,11 @@
 .mainPage .content{
     position: absolute;
     width: 100%;
+}
+
+.mainPage[data-annaChange="true"]{
+    background-color: black;
+    background-image: none;
 }
 
 @keyframes scrollFly {

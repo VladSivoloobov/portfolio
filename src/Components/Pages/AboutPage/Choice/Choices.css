@@ -7,6 +7,10 @@
     }
 }
 
+.message-block[data-dialogtype="BackgroundDialog"] .choices{
+    z-index: 100;
+}
+
 .choices{
     display: flex;
     justify-content: space-around;

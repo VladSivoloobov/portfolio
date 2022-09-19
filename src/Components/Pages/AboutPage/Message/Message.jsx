@@ -21,6 +21,8 @@ let textEffectsComponents = [];
 let messageCompleted = false;
 let stopClick = false;
 let idleAnimationStarted;
+let skipMessageWhileComplete = false;
+let functionAfterMessage;
 
 export function Message({
         anna,
@@ -37,7 +39,9 @@ export function Message({
         setTransformVoicerClasses,
         setAnimationStopped,
         setSingleEmotion,
-        handleNextMessage
+        handleNextMessage,
+        setAnnaChange,
+        setGameOver
     }){
     
     const [messageText, setMessageText] = useState("");
@@ -45,7 +49,11 @@ export function Message({
     const [choices, setChoices] = useState(null);
     
     const [variants, setVariants] = useState(null);
-    const messages = dialogs(scene, anna, {messageCompleted});   
+    const messages = dialogs(scene, anna, {
+        messageCompleted,
+        setAnnaChange,
+        setGameOver
+    }, nextMessage);   
     
     // useEffect(() => {
     //     const savedMessageCounter = localStorage.getItem("messageCounter");
@@ -179,9 +187,17 @@ export function Message({
                 messageCompleted = false;
                 await runText(text, setMessageText, ms, soundOff, animationOff);
                 resolve(1);
-            }).then(() => {
-                messageCompleted = true;
-                messageSkipped = false;
+            }).then(async () => {
+                if(skipMessageWhileComplete){
+                    await timeOut(300);
+                    nextMessage();
+                }
+                else{
+                    if(functionAfterMessage)
+                        functionAfterMessage();
+                    messageCompleted = true;
+                    messageSkipped = false;
+                }
              });
         }
         else{
@@ -197,13 +213,19 @@ export function Message({
         }
     }, [nextMessage, stopClick])
 
-    function waitMessage(callback){
+    function waitMessage(callback, notTimeout = true){
         const interval = setInterval(() => {
-            if(messageCompleted)
+            if(messageCompleted){
+                if(!notTimeout){
+                    callback();
+                    console.log("hello")
+                    clearInterval();
+                }
                 setTimeout(() => {
                     callback();
                     clearInterval(interval);
                 }, 500);
+            }
         }, 10);
     }
 
@@ -228,9 +250,14 @@ export function Message({
             })
         }
 
+        skipMessageWhileComplete = currentDialog?.nextMessage;
+        functionAfterMessage = currentDialog?.functionAfterMessage;
+
         setMessageReaction(currentDialog?.reaction);
         currentDialog?.callbackOutside();
         setTransformVoicerClasses(currentDialog?.transformVoicerClasses);
+
+        setGameOver(currentDialog?.finished);
 
         if(currentDialog?.runMusic) 
         {
@@ -293,7 +320,7 @@ export function Message({
             })()}
             data-choiced={choices ? "choices-true" : "choices-false"}
             onClick={(() => {
-                if(stopClick)
+                if(stopClick || skipMessageWhileComplete)
                     return null;
                 if(messageCompleted && !choices){
                     return () => nextMessage(variants);

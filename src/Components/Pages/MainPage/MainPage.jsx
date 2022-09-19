@@ -11,6 +11,8 @@ import "./MainPage_mobile.css";
 export function MainPage(){
     const [maxQualityChoosed, setMaxQulityChoose] = useState(true);
     const [currentScroll, setCurrentScroll] = useState(0);
+    const [annaChange, setAnnaChange] = useState(false);
+    const [gameOver, setGameOver] = useState(false);
 
     function handleMaxQualityChoosed(value){
         setMaxQulityChoose(value);
@@ -62,16 +64,21 @@ export function MainPage(){
     }
 
     return(
-        <div className="mainPage" data-windowed={windowed ? "windowed" : "not-windowed"} data-maxqulity={maxQualityChoosed}>
+        !gameOver ? 
+        <div data-annachange={annaChange} className="mainPage" data-windowed={windowed ? "windowed" : "not-windowed"} data-maxqulity={maxQualityChoosed}>
             <div style={contentBackgroundStyles} className="content">
-                <Header active={headerLinkActive} qualityMax={maxQualityChoosed} setQualityMax={handleMaxQualityChoosed}/>
+                <Header annaChange={annaChange} active={headerLinkActive} qualityMax={maxQualityChoosed} setQualityMax={handleMaxQualityChoosed}/>
                 <div className="portfolio_block" data-scrolled={ scrolled ? "scrolled" : "not-scrolled"}>
                     <h1 style={nameScrollStyles} className="name">
                         <span className="firstName">
-                            Владислав
+                            {
+                                annaChange ? "Анна" : "Владислав"
+                            }
                         </span> 
                         <span className="secondName">
-                            Сиволобов
+                            {
+                                annaChange ? "Граэм" : "Сиволобов"
+                            }
                         </span>
                     </h1>
                     <div style={buttonScrollStyles} className="button">
@@ -88,8 +95,10 @@ export function MainPage(){
                         <img src={arrow} alt="" />
                     </div>
                 </div>
-                <AboutPage qualityMax={maxQualityChoosed} setHideMainPage={setWindowed} changeHeaderLink={setHeaderLinkActive} />
-            </div>
+            <AboutPage setGameOver={setGameOver} annaChange={annaChange} setAnnaChange={setAnnaChange} qualityMax={maxQualityChoosed} setHideMainPage={setWindowed} changeHeaderLink={setHeaderLinkActive} />
         </div>
+    </div>
+    :
+    <div />
     )
 }

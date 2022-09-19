@@ -6,7 +6,8 @@ export class Dialog{
             runMusic = false, animation, emotion, choice, callbackInside,
             callbackOutside, textEffects, theme = "#100931", reaction, params,
             soundOff = false, animationOff = false, transformVoicerClasses, 
-            allAnimationStop = false
+            allAnimationStop = false, nextMessage = false, functionAfterMessage,
+            finished = false
         }, 
     ){
         
@@ -25,6 +26,9 @@ export class Dialog{
         this.animationOff = animationOff;
         this.transformVoicerClasses = transformVoicerClasses;
         this.allAnimationStop = allAnimationStop;
+        this.nextMessage = nextMessage;
+        this.functionAfterMessage = functionAfterMessage;
+        this.finished = finished;
 
         this.callbackOutside = callback => {
             if(callback)
@@ -57,13 +61,22 @@ export class BackgroundDialog extends Dialog{
         {
             messageText, timeout = 80,
             stopMusic = false, runMusic = true,
-            callbackInside, callbackOutside, textEffects, theme = "#000"
+            callbackInside, callbackOutside, textEffects, theme = "#000", finished
         }
     ){
         super({
             messageText, timeout,
             stopMusic, runMusic, callbackInside,
-            callbackOutside, textEffects, theme
+            callbackOutside, textEffects, theme, finished,
+        });
+    }
+}
+
+export class FinishedDialog extends Dialog{
+    type="FinishedDialog";
+    constructor(){
+        super({
+            messageText: " "
         });
     }
 }

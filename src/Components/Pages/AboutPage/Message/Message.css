@@ -53,8 +53,7 @@
     content: "Пропустить";
     position: absolute;
     right: 10%;
-    bottom: -20%;
-    
+    bottom: -10%;
     overflow: hidden;
     animation: 0.3s slideUp;
     color: var(--continue-color);
@@ -66,14 +65,14 @@
     content: "Далее";
     position: absolute;
     right: 10%;
-    bottom: -20%;
+    bottom: -10%;
     overflow: hidden;
     animation: 0.3s slideUp;
     color: var(--continue-color);
     transition: color 0.2s;
     z-index: 1;
-    font-size: 20px;
 }
+
 
 .novel[data-annaclose="true"] .message-name{
     transition: none;
@@ -228,3 +227,6 @@
     }
 }
 
+.message-block[data-finished="true"]::after{
+    display: none;
+}

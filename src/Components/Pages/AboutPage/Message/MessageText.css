@@ -7,6 +7,21 @@
     display: inline-block;
 }
 
+.letter{
+    animation: display 0.1s;
+}
+
+@keyframes display {
+    from{
+        transform: translate(0, -2px);
+        opacity: 0.3;
+    }
+    to{
+        transform: translate(0);
+        opacity: 1;
+    }
+}
+
 .message-text span.space{
     margin: 0 5px;
 }

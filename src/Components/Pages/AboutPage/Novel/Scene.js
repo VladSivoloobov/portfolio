@@ -10,7 +10,8 @@ import cold_short from "./src/sound/Cold/cold_short.mp3";
 import cold_long from "./src/sound/Cold/cold_long.mp3";
 
 import annaCloseBackground from "./src/annaClosed.gif";
-
+import horrorMusic from "./src/sound/horror.mp3";
+import sadHorror from "./src/sound/horrorSad.mp3";
 
 export class Scene{
     static secondBackground;
@@ -20,6 +21,7 @@ export class Scene{
         barBackground,
         annaCloseBackground
     }
+    static brokenPage = false;
     musicPlayed;
     ambience = new Audio(ambience);
     changeMusic(music){
@@ -38,7 +40,13 @@ export class Scene{
             case "cold-long":
                 this.currentMusic = new Audio(cold_long);
                 break;
+            case "horror":
+                this.currentMusic = new Audio(horrorMusic);
+                break;
+            case "sad-horror":
+                this.currentMusic = new Audio(sadHorror);
         }
+        this.currentMusic.loop = true;
         this.currentMusic.play();
     }
     

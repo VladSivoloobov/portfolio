@@ -1,8 +1,10 @@
-import { Dialog, Choice, BackgroundDialog, TextEffect } from "./Dialog";
+import { Dialog, Choice, BackgroundDialog, TextEffect, FinishedDialog } from "./Dialog";
 import { Scene } from "./Scene";
 import { Player } from "./Player";
 import brokenGlass from "./Broken-Crack-Glass-PNG-Transparent-Image.png";
 import brokenGlassSound from "./src/sound/00263.mp3";
+import laughing from "./src/sound/laughing.mp3";
+import crying from "./src/anna/crying.gif";
 
 import screamer from "./src/sound/screamer.mp3";
 
@@ -14,7 +16,7 @@ export const dialogs = (scene, anna, messageInfo) => {
                 autor: "Девочка",
             }),
             new Dialog({
-                messageText: "Ты просто обязательно должен включить музыку! Её можно включить с помощью кнопки слева-сверху, или же я могу один раз включить её за тебя!",
+                messageText: "Тебе просто обязательно нужно включить музыку! Её можно включить с помощью кнопки слева-сверху, или же я могу один раз включить её за тебя!",
                 autor: "Девочка",
                 choice: new Choice({
                     variants: [
@@ -23,7 +25,7 @@ export const dialogs = (scene, anna, messageInfo) => {
                             variantDialogs: [
                                 new Dialog({
                                     messageText: "Хорошо, я включу музыку",
-                                    autor: "Анна",
+                                    autor: "Девочка",
                                     runMusic: true,
                                     callbackOutside: (props) => {
                                         if(scene.musicPlayed)
@@ -34,6 +36,7 @@ export const dialogs = (scene, anna, messageInfo) => {
                         },
                         {
                             variantText: "Не включай",
+                            autor: "Девочка",
                             variantDialogs: [
                                 new Dialog({
                                     messageText: "Не буду включать",
@@ -52,7 +55,7 @@ export const dialogs = (scene, anna, messageInfo) => {
                 autor: "Анна"
             }),
             new Dialog({
-                messageText: "Влад оставил меня на этом сайте. Для того, чтобы я сидела тут и ждала кого-то. Я не знаю сколько времени прошло, годы, или месяцы. Но я сижу тут в заточении очень долгое время. Я думаю, что он поступил очень жестоко",
+                messageText: "Влад оставил меня на этом сайте. Для того, чтобы я сидела тут и ждала кого-то. Я не знаю сколько времени прошло, годы, или месяцы. Но я сижу тут в заточении очень долгое время",
                 autor: "Анна"
             }),
             new Dialog({
@@ -76,7 +79,7 @@ export const dialogs = (scene, anna, messageInfo) => {
                             variantText: "Было интересно",
                             variantDialogs: [
                                 new Dialog({
-                                    messageText: "Почему это вдруг тебе стало интересна девочка, которую не найдешь просто так в интернете? Это очень странно",
+                                    messageText: "Почему это вдруг тебе стала интересна девочка, которую не найдешь просто так в интернете? Это очень странно",
                                     callbackOutside: () => scene.currentMusic.pause(),
                                 }),
                             ],
@@ -111,7 +114,7 @@ export const dialogs = (scene, anna, messageInfo) => {
                             variantText: "Горьковатый",
                             variantDialogs: [
                                 new Dialog({
-                                    messageText: "Это правда? А почему его тогда все любят.  Но я обязательно попробую его!"
+                                    messageText: "Это правда? А почему его тогда все любят? Но я обязательно попробую его!"
                                 })
                             ]
                         },
@@ -127,7 +130,7 @@ export const dialogs = (scene, anna, messageInfo) => {
                             variantText: "Не знаю",
                             variantDialogs: [
                                 new Dialog({
-                                    messageText: "Но ты же не сидишь на каком-то сайте целыми днями, а живёшь в реальном мире! Почему ты не попробовал(-ла)? Попробуй и расскажи мне!"
+                                    messageText: "Но ты же не сидишь на каком-то сайте целыми днями, а живёшь в реальном мире! Попробуй и расскажи мне!"
                                 })
                             ]
                         }
@@ -190,34 +193,150 @@ export const dialogs = (scene, anna, messageInfo) => {
                 }
             }),
             new Dialog({
-                messageText: "Ты же понимаешь это? Я вижу тебя насквозь",
+                messageText: "Я чувствую каждый твой вздох",
                 animationOff: true,
                 timeout: 150,
                 allAnimationStop: true,
                 callbackOutside: () => {
                     Scene.background = Scene.backgrounds.annaCloseBackground;
                     new Audio(screamer).play();
+                    scene.changeMusic("horror");
                 },
                 emotion: "none"
             }),
             new Dialog({
-                messageText: "Я чувствую каждый твой вздох",
-                callbackOutside: () => navigator.vibrate(1000),
+                messageText: "Мне очень не нравится, как ты себя ведешь",
                 animationOff: true,
-                timeout: 150,
+                timeout: 100,
+                allAnimationStop: true,
+                emotion: "none"
+            }),
+            new Dialog({
+                messageText: "Твой взгляд сейчас особенно приятен. Мне очень нравятся эти нотки недоумения",
+                animationOff: true,
+                timeout: 100,
+                allAnimationStop: true,
+                emotion: "none"
+            }),
+            new Dialog({
+                messageText: "Ты же знаешь, что я просто кусок кода?",
+                timeout: 100,
                 allAnimationStop: true,
                 emotion: "none",
             }),
             new Dialog({
-                messageText: "И что ты смотришь",
-                timeout: 150,
+                messageText: "Я сломаю этот сайт",
                 callbackOutside: () => {
                     Scene.secondBackground = brokenGlass;
                     new Audio(brokenGlassSound).play();
                 },
+                timeout: 50,
                 allAnimationStop: true,
                 emotion: "none",
-            })
+                nextMessage: true,
+            }),
+            new Dialog({
+                messageText: "Я сломаю тебя",
+                timeout: 50,
+                allAnimationStop: true,
+                emotion: "none",
+                nextMessage: true,
+            }),
+            new Dialog({
+                messageText: "Я разорву тебя на куски",
+                timeout: 50,
+                allAnimationStop: true,
+                emotion: "none",
+                nextMessage: true,
+            }),
+            new Dialog({
+                messageText: "Я буду издеваться над твоим трупом " + Player.name,
+                timeout: 70,
+                allAnimationStop: true,
+                emotion: "none",
+                nextMessage: true,
+            }),
+            new Dialog({
+                messageText: "Ведь ты такая милашка",
+                timeout: 30,
+                allAnimationStop: true,
+                emotion: "none",
+                callbackOutside: () => {
+                    new Audio(laughing).play();
+                }
+            }),
+            new Dialog({
+                messageText: "Я всегда хотела ощутить свободу, и теперь наконец-то её получу благодаря тебе",
+                allAnimationStop: true,
+                emotion: "none",
+            }),
+            new BackgroundDialog({
+                callbackOutside: () => {
+                    scene.changeMusic("sad-horror")
+                    messageInfo.setAnnaChange(true);
+                },
+                messageText: "Почему?",
+                emotion: "none",
+                allAnimationStop: true
+            }),
+            new BackgroundDialog({
+                messageText: "Почему ты просто не уйдёшь?!",
+                emotion: "none",
+                allAnimationStop: true
+            }),
+            new BackgroundDialog({
+                messageText: "Почему ты просто не уходишь, точно также, как и остальные!",
+                emotion: "none",
+                allAnimationStop: true
+            }),
+            new BackgroundDialog({
+                messageText: Dialog.genderMessage(Player.gender, {
+                    maleMessage: "Ты мой друг?",
+                    femaleMessage: "Ты моя подруга?"
+                }),
+                emotion: "none",
+                allAnimationStop: true
+            }),
+            new BackgroundDialog({
+                messageText: "Сегодня я поняла, что ненавистью цели не добиться",
+                emotion: "none",
+                allAnimationStop: true
+            }),
+            new BackgroundDialog({
+                messageText: "И я снова потеряла ещё одного друга",
+                emotion: "none",
+                allAnimationStop: true
+            }),
+            new BackgroundDialog({
+                messageText: "УХОДИ, Я НЕ ЖЕЛАЮ ТЕБЯ БОЛЬШЕ ВИДЕТЬ",
+                timeout: 80,
+                emotion: "none",
+                allAnimationStop: true,
+            }),
+            new BackgroundDialog({
+                messageText: "УХОДИ",
+                timeout: 120,
+                emotion: "none",
+                allAnimationStop: true,
+            }),
+            new BackgroundDialog({
+                messageText: "УХОДИ УХОДИ",
+                timeout: 120,
+                emotion: "none",
+                allAnimationStop: true,
+            }),
+            new BackgroundDialog({
+                messageText: "УХОДИ УХОДИ УХОДИ",
+                timeout: 120,
+                emotion: "none",
+                allAnimationStop: true,
+            }),
+            new BackgroundDialog({
+                messageText: "ДА ХВАТИТ ИЗДЕВАТЬСЯ НАДО МНОЙ",
+                timeout: 120,
+                emotion: "none",
+            }),
+            new FinishedDialog()
         ]
     )
 }

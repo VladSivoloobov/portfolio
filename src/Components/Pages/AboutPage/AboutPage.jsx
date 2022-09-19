@@ -17,7 +17,10 @@ let modalWindowFinished = false;
 let modalWindowStarted = false;
 let nextMessage;
 
-export function AboutPage({changeHeaderLink, scrolled, hideMainPage, setHideMainPage, qualityMax}){
+export function AboutPage({
+    changeHeaderLink, scrolled, hideMainPage, setHideMainPage, qualityMax,
+    annaChange, setAnnaChange, setGameOver
+}){
     const styles = {
         transform: `translateY(calc(100% - ${window.scrollY}px))`,
     }
@@ -138,12 +141,7 @@ export function AboutPage({changeHeaderLink, scrolled, hideMainPage, setHideMain
                     })()
                 }
                 <div className="secondBackground" style={{
-                    backgroundImage: `url(${Scene.secondBackground})`,
-                    width: "100%",
-                    height: "100%",
-                    position: "absolute",
-                    backgroundSize: "contain",
-                    backgroundPosition: "center center"
+                    backgroundImage: `url(${Scene.secondBackground})`
                 }}></div>
                 <div className="shadow"></div>
                 <div className={audioButtonState ? "audio off" : "audio"} 
@@ -179,6 +177,8 @@ export function AboutPage({changeHeaderLink, scrolled, hideMainPage, setHideMain
                     setAnimationStopped={setAnimationStopped}
                     setSingleEmotion={setSingleEmotion}
                     handleNextMessage={handleNextMessage}
+                    setAnnaChange={setAnnaChange}
+                    setGameOver={setGameOver}
                 />
             </div>
         </div>

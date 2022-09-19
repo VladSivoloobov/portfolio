@@ -18,7 +18,7 @@ const Path = ({linkText, active, onclick, className, notHideOnClick}) => {
     )
 }
 
-export function Header({active, qualityMax, setQualityMax}){
+export function Header({active, qualityMax, setQualityMax, annaChange}){
     const [settingsClicked, setSettingsClicked] = useState(false);
 
     function settingsClickedHandler(value){
@@ -28,7 +28,7 @@ export function Header({active, qualityMax, setQualityMax}){
     return(
         <header data-settings={settingsClicked}>
             <div className="logo">
-                <a href="#">Портфолио</a>
+                <a href="#">{annaChange ? "Смерть" : "Портфолио"}</a>
             </div>
             <ul className="links">
                 <Path onclick={() => setTimeout(() => window.scrollTo({
