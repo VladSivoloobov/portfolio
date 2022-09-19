@@ -45,7 +45,7 @@ export function Message({
     const [choices, setChoices] = useState(null);
     
     const [variants, setVariants] = useState(null);
-    const messages = dialogs(scene, anna);   
+    const messages = dialogs(scene, anna, {messageCompleted});   
     
     // useEffect(() => {
     //     const savedMessageCounter = localStorage.getItem("messageCounter");

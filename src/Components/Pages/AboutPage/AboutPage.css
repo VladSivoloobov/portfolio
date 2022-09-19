@@ -60,6 +60,7 @@
     background-image: url("../../../img/bg.gif");
     background-position: center right;
     image-rendering: pixelated;
+    background-size: cover;
 }
 
 .novel .shadow{
@@ -71,6 +72,7 @@
 
 .novel[data-annaclose="true"]{
     background-position: center center;
+    background-size: contain;
 }
 
 .novel[data-annaclose="true"] .audio{

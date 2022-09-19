@@ -16,6 +16,7 @@
     .novel[data-annaclose="true"]{
         animation: none;
         background-position: center center;
+        background-size: 190%;
     }
 
     .girl img{

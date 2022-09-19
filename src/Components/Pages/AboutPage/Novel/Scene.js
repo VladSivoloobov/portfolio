@@ -11,7 +11,9 @@ import cold_long from "./src/sound/Cold/cold_long.mp3";
 
 import annaCloseBackground from "./src/annaClosed.gif";
 
+
 export class Scene{
+    static secondBackground;
     static background = barBackground;
     currentMusic = new Audio(ost);
     static backgrounds = {
@@ -39,6 +41,7 @@ export class Scene{
         }
         this.currentMusic.play();
     }
+    
     static voices = {
         voice,
         angryVoice,

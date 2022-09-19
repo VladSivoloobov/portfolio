@@ -122,7 +122,7 @@ export function AboutPage({changeHeaderLink, scrolled, hideMainPage, setHideMain
             <div data-annaclose={Scene.background === Scene.backgrounds.annaCloseBackground} data-maxqulity={qualityMax} style={{
                 backgroundImage: `url(${Scene.background})`,
                 backgroundRepeat: "no-repeat",
-                backgroundSize: Scene.background === Scene.backgrounds.annaCloseBackground ? "contain" : "cover",
+                
             }} className="novel">
                 {
                     (() => {
@@ -137,6 +137,14 @@ export function AboutPage({changeHeaderLink, scrolled, hideMainPage, setHideMain
                         }
                     })()
                 }
+                <div className="secondBackground" style={{
+                    backgroundImage: `url(${Scene.secondBackground})`,
+                    width: "100%",
+                    height: "100%",
+                    position: "absolute",
+                    backgroundSize: "contain",
+                    backgroundPosition: "center center"
+                }}></div>
                 <div className="shadow"></div>
                 <div className={audioButtonState ? "audio off" : "audio"} 
                     onClick={audioButtonState ? stopSound : playSound}

@@ -1,19 +1,21 @@
 import { Dialog, Choice, BackgroundDialog, TextEffect } from "./Dialog";
 import { Scene } from "./Scene";
 import { Player } from "./Player";
+import brokenGlass from "./Broken-Crack-Glass-PNG-Transparent-Image.png";
+import brokenGlassSound from "./src/sound/00263.mp3";
 
-export const dialogs = (scene, anna) => {
+import screamer from "./src/sound/screamer.mp3";
+
+export const dialogs = (scene, anna, messageInfo) => {
     return (
         [
             new Dialog({
                 messageText: "Привет, я не ожидала тебя сегодня увидеть. Но раз уж ты тут, то тогда я должна рассказать о себе",
                 autor: "Девочка",
-                callbackOutside: () => navigator.vibrate(1000),
             }),
             new Dialog({
                 messageText: "Ты просто обязательно должен включить музыку! Её можно включить с помощью кнопки слева-сверху, или же я могу один раз включить её за тебя!",
                 autor: "Девочка",
-                callbackOutside: () => navigator.vibrate(1000),
                 choice: new Choice({
                     variants: [
                         {
@@ -194,6 +196,7 @@ export const dialogs = (scene, anna) => {
                 allAnimationStop: true,
                 callbackOutside: () => {
                     Scene.background = Scene.backgrounds.annaCloseBackground;
+                    new Audio(screamer).play();
                 },
                 emotion: "none"
             }),
@@ -203,7 +206,17 @@ export const dialogs = (scene, anna) => {
                 animationOff: true,
                 timeout: 150,
                 allAnimationStop: true,
-                emotion: "none"
+                emotion: "none",
+            }),
+            new Dialog({
+                messageText: "И что ты смотришь",
+                timeout: 150,
+                callbackOutside: () => {
+                    Scene.secondBackground = brokenGlass;
+                    new Audio(brokenGlassSound).play();
+                },
+                allAnimationStop: true,
+                emotion: "none",
             })
         ]
     )
