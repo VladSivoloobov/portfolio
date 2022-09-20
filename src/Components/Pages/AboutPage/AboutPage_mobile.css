@@ -90,17 +90,19 @@
 
 @media not all and (min-resolution:.001dpcm)
 { @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+    
+}}
+
+@media screen and (min-resolution:.001dpcm) and (orientation: portrait)
+{ @supports (-webkit-appearance:none) and (stroke-color:transparent) {
     .novel{
         height: 100%;
     }
     
     .message-block{
-        padding-bottom: calc(50px - env(safe-area-inset-bottom));
+        padding-bottom: calc(70px - env(safe-area-inset-bottom));
     }
-}}
 
-@media screen and (min-resolution:.001dpcm) and (orientation: portrait)
-{ @supports (-webkit-appearance:none) and (stroke-color:transparent) {
     .girl img{
         width: 80%;
     }

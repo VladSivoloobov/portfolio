@@ -28,7 +28,7 @@ export function Header({active, qualityMax, setQualityMax, annaChange}){
     return(
         <header data-settings={settingsClicked}>
             <div className="logo">
-                <a href="#">{annaChange ? "Смерть" : "Портфолио"}</a>
+                <a href="#">{annaChange ? "Свобода" : "Портфолио"}</a>
             </div>
             <ul className="links">
                 <Path onclick={() => setTimeout(() => window.scrollTo({
@@ -39,7 +39,7 @@ export function Header({active, qualityMax, setQualityMax, annaChange}){
                     top: 700,
                     behavior: "smooth"
                 }), 2)} linkText="Обо мне" active={active}/>
-                <Path linkText="Связь" path="socialMedia" active={active}/>
+                {/* <Path linkText="Связь" path="socialMedia" active={active}/> */}
             </ul>
             <div className="hamburger" onClick={e => {
                 e.target.classList.toggle("rotated");
@@ -56,7 +56,7 @@ export function Header({active, qualityMax, setQualityMax, annaChange}){
                     top: 700,
                     behavior: "smooth"
                 }), 2)} linkText="Обо мне" active={active}/>
-                <Path linkText="Связь" path="socialMedia" active={active}/>
+                {/* <Path linkText="Связь" path="socialMedia" active={active}/> */}
                 <Path notHideOnClick={true} onclick={() => {
                     setSettingsClicked(!settingsClicked);
                 }} className="settings" linkText="Параметры" path="socialMedia" active={active}/>

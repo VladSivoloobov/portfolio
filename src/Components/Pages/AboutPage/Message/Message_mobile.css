@@ -23,7 +23,7 @@
         height: 150px;
         width: 90%;
         position: relative;
-        z-index: 2;
+        z-index: 100;
         margin-bottom: 90px;
     }
 }
@@ -33,7 +33,7 @@
         height: 150px;
         width: 90%;
         position: relative;
-        z-index: 2;
+        z-index: 100;
         margin-bottom: 90px;
         left: 0.5%;
     }

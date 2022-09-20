@@ -32,7 +32,9 @@
 
 .mainPage[data-annaChange="true"]{
     background-color: black;
-    background-image: none;
+    background-image: url("../../../img/bg\ \(1\).gif");
+    background-position: center center;
+    background-size: cover;
 }
 
 @keyframes scrollFly {

@@ -16,7 +16,11 @@
     position: absolute;
     padding: 0 10px;
     height: 200vh;
-    top: -250%;
+    top: -350%;
+    border: 0;
+    left: 0%;
+    animation: none;
+    transition: none;
 }
 
 .message-block.not-completed[data-dialogtype="FinishedDialog"] .message-text::after{
@@ -66,7 +70,7 @@ span{
 .message-block.not-completed[data-dialogtype="BackgroundDialog"] .message-text::after{
     content: "Пропустить";
     position: absolute;
-    right: 0%;
+    right: 10%;
         
     top: 90%;
     overflow: hidden;
@@ -80,7 +84,7 @@ span{
 .message-block[data-dialogtype="BackgroundDialog"] .message-text::after{
     content: "Далее";
     position: absolute;
-    right: 0%;
+    right: 10%;
 
     top: 90%;
     overflow: hidden;

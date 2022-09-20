@@ -57,18 +57,8 @@ export class Dialog{
 
 export class BackgroundDialog extends Dialog{
     type = "BackgroundDialog";
-    constructor(
-        {
-            messageText, timeout = 80,
-            stopMusic = false, runMusic = true,
-            callbackInside, callbackOutside, textEffects, theme = "#000", finished
-        }
-    ){
-        super({
-            messageText, timeout,
-            stopMusic, runMusic, callbackInside,
-            callbackOutside, textEffects, theme, finished,
-        });
+    constructor(props){
+        super(props);
     }
 }
 

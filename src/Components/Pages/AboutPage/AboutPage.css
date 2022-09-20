@@ -35,6 +35,7 @@
     box-shadow: 10px 10px 10px rgba(0, 0, 0, .4);
     border-radius: 20px;
     transition: background 0.2s;
+    z-index: 60;
 }
 
 .audio:hover{
@@ -86,7 +87,7 @@
     background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;
-    
+    z-index: 50;
 }
 
 .girl img[data-emotion="none"]{

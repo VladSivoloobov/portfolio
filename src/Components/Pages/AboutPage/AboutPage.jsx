@@ -95,9 +95,6 @@ export function AboutPage({
 
         if(window.scrollY < 300){
             changeHeaderLink("Главная");
-            setAudioButtonState(false);
-            scene.currentMusic.pause();
-            scene.ambience.pause();
         }
     }, [windowed, changeHeaderLink])
 
@@ -179,6 +176,7 @@ export function AboutPage({
                     handleNextMessage={handleNextMessage}
                     setAnnaChange={setAnnaChange}
                     setGameOver={setGameOver}
+                    aboutPageRef={ref}
                 />
             </div>
         </div>

@@ -9,6 +9,7 @@ import "./TextEffects.css";
 import "./DialogTypes.css";
 import "./MessageReactions.css";
 import { Scene } from "../Novel/Scene";
+import { Player } from "../Novel/Player";
 
 let messageSkipped = false;
 let messageCounter = 0;
@@ -41,7 +42,8 @@ export function Message({
         setSingleEmotion,
         handleNextMessage,
         setAnnaChange,
-        setGameOver
+        setGameOver,
+        aboutPageRef
     }){
     
     const [messageText, setMessageText] = useState("");
@@ -52,16 +54,17 @@ export function Message({
     const messages = dialogs(scene, anna, {
         messageCompleted,
         setAnnaChange,
-        setGameOver
+        setGameOver,
+        aboutPageRef
     }, nextMessage);   
     
     // useEffect(() => {
     //     const savedMessageCounter = localStorage.getItem("messageCounter");
     //     if(savedMessageCounter){
-    //         showMessage(player.name !== "unknown" ? `Привет, ${player.name}, давай продолжим там где остановились?` : "Давай продолжим там где остановились?", "Анна", anna.emotions.smile, 0);
+    //         showMessage(Player.name !== "unknown" ? `Привет, ${Player.name}, давай продолжим там где остановились?` : "Давай продолжим там где остановились?", "Анна", anna.emotions.smile, 0);
     //         messageCounter = +savedMessageCounter;
     //     }
-    // }, []) Сохранение состояния, убрать после дебага
+    // }, [])
 
     useEffect(() => {
         if(idleAnimationStarted)

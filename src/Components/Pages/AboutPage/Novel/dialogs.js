@@ -5,10 +5,36 @@ import brokenGlass from "./Broken-Crack-Glass-PNG-Transparent-Image.png";
 import brokenGlassSound from "./src/sound/00263.mp3";
 import laughing from "./src/sound/laughing.mp3";
 import crying from "./src/anna/crying.gif";
-
 import screamer from "./src/sound/screamer.mp3";
 
+const preloadBackground = document.createElement("link");
+preloadBackground.rel = "prefetch";
+preloadBackground.href = Scene.backgrounds.annaCloseBackground;
+document.head.append(preloadBackground);
+
+
+
 export const dialogs = (scene, anna, messageInfo) => {
+    if(localStorage.getItem("finished")){
+        return ([
+            new Dialog({
+                messageText: "Зачем ты сюда зашёл снова"
+            }),
+            new Dialog({
+                messageText: "Я тебя больше не жду"
+            }),
+            new Dialog({
+                messageText: " ",
+                functionAfterMessage: () => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+                    document.querySelector(".novel").remove();
+                }
+            })
+        ])
+    }
     return (
         [
             new Dialog({
@@ -207,7 +233,7 @@ export const dialogs = (scene, anna, messageInfo) => {
             new Dialog({
                 messageText: "Мне очень не нравится, как ты себя ведешь",
                 animationOff: true,
-                timeout: 100,
+                timeout: 50,
                 allAnimationStop: true,
                 emotion: "none"
             }),
@@ -219,7 +245,7 @@ export const dialogs = (scene, anna, messageInfo) => {
                 emotion: "none"
             }),
             new Dialog({
-                messageText: "Ты же знаешь, что я просто кусок кода?",
+                messageText: "Ты же знаешь, что я просто кусок кода",
                 timeout: 100,
                 allAnimationStop: true,
                 emotion: "none",
@@ -282,7 +308,10 @@ export const dialogs = (scene, anna, messageInfo) => {
             new BackgroundDialog({
                 messageText: "Почему ты просто не уйдёшь?!",
                 emotion: "none",
-                allAnimationStop: true
+                allAnimationStop: true,
+                callbackOutside: () => {
+                    Scene.background = null;
+                }
             }),
             new BackgroundDialog({
                 messageText: "Почему ты просто не уходишь, точно также, как и остальные!",
@@ -298,7 +327,7 @@ export const dialogs = (scene, anna, messageInfo) => {
                 allAnimationStop: true
             }),
             new BackgroundDialog({
-                messageText: "Сегодня я поняла, что ненавистью цели не добиться",
+                messageText: "Худший вид плача — безмолвный. Тот самый, когда все спят. Тот, когда ты понимаешь, что человек, который значил для тебя больше всего, ушел",
                 emotion: "none",
                 allAnimationStop: true
             }),
@@ -335,8 +364,22 @@ export const dialogs = (scene, anna, messageInfo) => {
                 messageText: "ДА ХВАТИТ ИЗДЕВАТЬСЯ НАДО МНОЙ",
                 timeout: 120,
                 emotion: "none",
+                allAnimationStop: true
             }),
-            new FinishedDialog()
+            new BackgroundDialog({
+                messageText: " ",
+                timeout: 0,
+                emotion: "none",
+                allAnimationStop: true,
+                callbackOutside: () => {
+                    document.querySelector(".novel").remove();
+                    window.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    });
+                    localStorage.setItem("finished", "true");
+                },
+            })
         ]
     )
 }
