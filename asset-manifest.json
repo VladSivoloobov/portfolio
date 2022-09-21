@@ -1,0 +1,40 @@
+{
+  "files": {
+    "main.css": "./static/css/main.936576f3.css",
+    "main.js": "./static/js/main.29ce2388.js",
+    "static/media/bg (1).gif": "./static/media/bg (1).c613b19d7e2bb4d84418.gif",
+    "static/media/ambience.mp3": "./static/media/ambience.c0b1211d8a2b99c68a39.mp3",
+    "static/media/ost.mp3": "./static/media/ost.df7981cf8ca92286f4e0.mp3",
+    "static/media/dream.mp3": "./static/media/dream.b167e4cba0164608b8dd.mp3",
+    "static/media/cold_long.mp3": "./static/media/cold_long.cd7484c98bcd944da834.mp3",
+    "static/media/annaClosed.gif": "./static/media/annaClosed.651d2aae9e1651b229b5.gif",
+    "static/media/horrorSad.mp3": "./static/media/horrorSad.71da3ac14a428c651eb3.mp3",
+    "static/media/horror.mp3": "./static/media/horror.eb2575faff23e088cbab.mp3",
+    "static/media/bg.gif": "./static/media/bg.d84551f4b2c4909929ca.gif",
+    "static/media/cold_short.mp3": "./static/media/cold_short.201c0c4d3bb4e787e4f5.mp3",
+    "static/media/F77 Minecraft.ttf": "./static/media/F77 Minecraft.84739bb040356b935841.ttf",
+    "static/media/background.gif": "./static/media/background.ebb6cb3a231043445341.gif",
+    "static/media/glitched.gif": "./static/media/glitched.2853ad40e55bdaa98fcf.gif",
+    "static/media/crying.gif": "./static/media/crying.899aa19f0c8821ae7dd7.gif",
+    "static/media/frame_000_delay-0.03s.gif": "./static/media/frame_000_delay-0.03s.4dc926da3c9db0c61dd0.gif",
+    "static/media/Broken-Crack-Glass-PNG-Transparent-Image.png": "./static/media/Broken-Crack-Glass-PNG-Transparent-Image.b94354a5d9ec34bd9a50.png",
+    "static/media/PngItem_1207833.png": "./static/media/PngItem_1207833.0f4319116cd72368f1a8.png",
+    "static/media/frame_00_delay-0.08s.gif": "./static/media/frame_00_delay-0.08s.b11c4fc50ad83007a7bc.gif",
+    "static/media/laughing.mp3": "./static/media/laughing.3d24b0e9de818908cc32.mp3",
+    "static/media/screamer.mp3": "./static/media/screamer.8c726bbc659e982c283c.mp3",
+    "static/media/Undertale-Battle-Font.ttf": "./static/media/Undertale-Battle-Font.4ca303e5e47dd0610bd6.ttf",
+    "static/media/heart.png": "./static/media/heart.d14b88c2626ec9012942.png",
+    "static/media/00263.mp3": "./static/media/00263.a48869cb2da0ca2f07db.mp3",
+    "static/media/playerVoice_male.mp3": "./static/media/playerVoice_male.123a99f56d9e334bd440.mp3",
+    "static/media/playerVoice_female.mp3": "./static/media/playerVoice_female.f7b5418e336d60d225b5.mp3",
+    "static/media/angryVoice.mp3": "./static/media/angryVoice.4a505d11ec30fe1bb7e5.mp3",
+    "static/media/voice.mp3": "./static/media/voice.85d5b722688ee8261deb.mp3",
+    "index.html": "./index.html",
+    "main.936576f3.css.map": "./static/css/main.936576f3.css.map",
+    "main.29ce2388.js.map": "./static/js/main.29ce2388.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.936576f3.css",
+    "static/js/main.29ce2388.js"
+  ]
+}
